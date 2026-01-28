@@ -48,6 +48,13 @@ public class DrawingApp {
                 drawLine(x2, y1, x2, y2);
                 printCanvas();
             }
+
+            if (command.equals("B")) {
+                int x = Integer.parseInt(parts[1]);
+                int y = Integer.parseInt(parts[2]);
+                char color = parts[3].charAt(0);
+                System.out.println("Fill at (" + x + "," + y + ") with '" + color + "'");
+            }
         }
 
         scanner.close();
