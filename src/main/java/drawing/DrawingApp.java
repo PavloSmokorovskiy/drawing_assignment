@@ -1,12 +1,9 @@
 package drawing;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class DrawingApp {
-    private static char[][] canvas;
-    private static int width, height;
+    private static Canvas canvas;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,12 +19,9 @@ public class DrawingApp {
 
             try {
                 if (command.equals("C")) {
-                    width = Integer.parseInt(parts[1]);
-                    height = Integer.parseInt(parts[2]);
-                    canvas = new char[height][width];
-                    for (int y = 0; y < height; y++)
-                        for (int x = 0; x < width; x++)
-                            canvas[y][x] = ' ';
+                    int width = Integer.parseInt(parts[1]);
+                    int height = Integer.parseInt(parts[2]);
+                    canvas = new Canvas(width, height);
                     printCanvas();
                 }
 
@@ -37,9 +31,9 @@ public class DrawingApp {
                     int y1 = Integer.parseInt(parts[2]);
                     int x2 = Integer.parseInt(parts[3]);
                     int y2 = Integer.parseInt(parts[4]);
-                    validateBounds(x1, y1);
-                    validateBounds(x2, y2);
-                    drawLine(x1, y1, x2, y2);
+                    canvas.validateBounds(x1, y1);
+                    canvas.validateBounds(x2, y2);
+                    canvas.drawLine(x1, y1, x2, y2);
                     printCanvas();
                 }
 
@@ -49,12 +43,9 @@ public class DrawingApp {
                     int y1 = Integer.parseInt(parts[2]);
                     int x2 = Integer.parseInt(parts[3]);
                     int y2 = Integer.parseInt(parts[4]);
-                    validateBounds(x1, y1);
-                    validateBounds(x2, y2);
-                    drawLine(x1, y1, x2, y1);
-                    drawLine(x1, y2, x2, y2);
-                    drawLine(x1, y1, x1, y2);
-                    drawLine(x2, y1, x2, y2);
+                    canvas.validateBounds(x1, y1);
+                    canvas.validateBounds(x2, y2);
+                    canvas.drawRectangle(x1, y1, x2, y2);
                     printCanvas();
                 }
 
@@ -63,8 +54,8 @@ public class DrawingApp {
                     int x = Integer.parseInt(parts[1]);
                     int y = Integer.parseInt(parts[2]);
                     char color = parts[3].charAt(0);
-                    validateBounds(x, y);
-                    fill(x, y, color);
+                    canvas.validateBounds(x, y);
+                    canvas.fill(x, y, color);
                     printCanvas();
                 }
             } catch (DrawingException e) {
@@ -76,62 +67,25 @@ public class DrawingApp {
     }
 
     private static void printCanvas() {
-        System.out.println("-".repeat(width + 2));
+        int w = canvas.width();
+        int h = canvas.height();
 
-        for (int y = 0; y < height; y++) {
+        System.out.println("-".repeat(w + 2));
+
+        for (int y = 0; y < h; y++) {
             System.out.print("|");
-            for (int x = 0; x < width; x++) {
-                System.out.print(canvas[y][x]);
+            for (int x = 0; x < w; x++) {
+                System.out.print(canvas.pixels()[y][x]);
             }
             System.out.println("|");
         }
 
-        System.out.println("-".repeat(width + 2));
-    }
-
-    private static void drawLine(int x1, int y1, int x2, int y2) {
-        int minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
-        int minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
-        for (int y = minY; y <= maxY; y++)
-            for (int x = minX; x <= maxX; x++)
-                canvas[y - 1][x - 1] = 'x';
+        System.out.println("-".repeat(w + 2));
     }
 
     private static void requireCanvas() {
         if (canvas == null) {
             throw new DrawingException("Canvas not created. Use: C <width> <height>");
-        }
-    }
-
-    private static void validateBounds(int x, int y) {
-        if (x < 1 || x > width || y < 1 || y > height) {
-            throw new DrawingException("Coordinates out of bounds");
-        }
-    }
-
-    private static void fill(int startX, int startY, char color) {
-        char target = canvas[startY - 1][startX - 1];
-        if (target == color)
-            return;
-
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[] { startX, startY });
-
-        while (!queue.isEmpty()) {
-            int[] p = queue.poll();
-            int x = p[0], y = p[1];
-
-            if (x < 1 || x > width || y < 1 || y > height)
-                continue;
-            if (canvas[y - 1][x - 1] != target)
-                continue;
-
-            canvas[y - 1][x - 1] = color;
-
-            queue.add(new int[] { x + 1, y });
-            queue.add(new int[] { x - 1, y });
-            queue.add(new int[] { x, y + 1 });
-            queue.add(new int[] { x, y - 1 });
         }
     }
 }
