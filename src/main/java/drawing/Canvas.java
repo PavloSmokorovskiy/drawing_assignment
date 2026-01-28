@@ -27,54 +27,63 @@ public class Canvas {
         return pixels;
     }
 
-    public void drawLine(int x1, int y1, int x2, int y2) {
-        int minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
-        int minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
+    public char getPixel(Point p) {
+        return pixels[p.y() - 1][p.x() - 1];
+    }
+
+    public void setPixel(Point p, char c) {
+        pixels[p.y() - 1][p.x() - 1] = c;
+    }
+
+    public void drawLine(Point from, Point to) {
+        int minX = Math.min(from.x(), to.x()), maxX = Math.max(from.x(), to.x());
+        int minY = Math.min(from.y(), to.y()), maxY = Math.max(from.y(), to.y());
         for (int y = minY; y <= maxY; y++)
             for (int x = minX; x <= maxX; x++)
-                pixels[y - 1][x - 1] = 'x';
+                setPixel(new Point(x, y), 'x');
     }
 
-    public void drawRectangle(int x1, int y1, int x2, int y2) {
-        drawLine(x1, y1, x2, y1);
-        drawLine(x1, y2, x2, y2);
-        drawLine(x1, y1, x1, y2);
-        drawLine(x2, y1, x2, y2);
+    public void drawRectangle(Point corner1, Point corner2) {
+        drawLine(new Point(corner1.x(), corner1.y()), new Point(corner2.x(), corner1.y())); // верх
+        drawLine(new Point(corner1.x(), corner2.y()), new Point(corner2.x(), corner2.y())); // низ
+        drawLine(new Point(corner1.x(), corner1.y()), new Point(corner1.x(), corner2.y())); // лево
+        drawLine(new Point(corner2.x(), corner1.y()), new Point(corner2.x(), corner2.y())); // право
     }
 
-    public void fill(int startX, int startY, char color) {
-        char target = pixels[startY - 1][startX - 1];
+    public void fill(Point start, char color) {
+        char target = getPixel(start);
         if (target == color)
             return;
 
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[] { startX, startY });
+        Queue<Point> queue = new LinkedList<>();
+        queue.add(start);
 
         while (!queue.isEmpty()) {
-            int[] p = queue.poll();
-            int x = p[0], y = p[1];
+            Point p = queue.poll();
 
-            if (x < 1 || x > width || y < 1 || y > height)
+            if (isOutOfBounds(p))
                 continue;
-            if (pixels[y - 1][x - 1] != target)
+            if (getPixel(p) != target)
                 continue;
 
-            pixels[y - 1][x - 1] = color;
+            setPixel(p, color);
 
-            queue.add(new int[] { x + 1, y });
-            queue.add(new int[] { x - 1, y });
-            queue.add(new int[] { x, y + 1 });
-            queue.add(new int[] { x, y - 1 });
+            queue.add(p.moveX(1));
+            queue.add(p.moveX(-1));
+            queue.add(p.moveY(1));
+            queue.add(p.moveY(-1));
         }
     }
 
-    public boolean isOutOfBounds(int x, int y) {
-        return x < 1 || x > width || y < 1 || y > height;
+    public boolean isOutOfBounds(Point p) {
+        return p.x() < 1 || p.x() > width || p.y() < 1 || p.y() > height;
     }
 
-    public void validateBounds(int x, int y) {
-        if (isOutOfBounds(x, y)) {
-            throw new DrawingException("Coordinates out of bounds");
+    public void validateBounds(Point... points) {
+        for (Point p : points) {
+            if (isOutOfBounds(p)) {
+                throw new DrawingException("Coordinates out of bounds");
+            }
         }
     }
 

@@ -27,35 +27,28 @@ public class DrawingApp {
 
                 if (command.equals("L")) {
                     requireCanvas();
-                    int x1 = Integer.parseInt(parts[1]);
-                    int y1 = Integer.parseInt(parts[2]);
-                    int x2 = Integer.parseInt(parts[3]);
-                    int y2 = Integer.parseInt(parts[4]);
-                    canvas.validateBounds(x1, y1);
-                    canvas.validateBounds(x2, y2);
-                    canvas.drawLine(x1, y1, x2, y2);
+                    Point from = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                    Point to = new Point(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
+                    canvas.validateBounds(from, to);
+                    canvas.drawLine(from, to);
                     printCanvas();
                 }
 
                 if (command.equals("R")) {
                     requireCanvas();
-                    int x1 = Integer.parseInt(parts[1]);
-                    int y1 = Integer.parseInt(parts[2]);
-                    int x2 = Integer.parseInt(parts[3]);
-                    int y2 = Integer.parseInt(parts[4]);
-                    canvas.validateBounds(x1, y1);
-                    canvas.validateBounds(x2, y2);
-                    canvas.drawRectangle(x1, y1, x2, y2);
+                    Point corner1 = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                    Point corner2 = new Point(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
+                    canvas.validateBounds(corner1, corner2);
+                    canvas.drawRectangle(corner1, corner2);
                     printCanvas();
                 }
 
                 if (command.equals("B")) {
                     requireCanvas();
-                    int x = Integer.parseInt(parts[1]);
-                    int y = Integer.parseInt(parts[2]);
+                    Point point = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
                     char color = parts[3].charAt(0);
-                    canvas.validateBounds(x, y);
-                    canvas.fill(x, y, color);
+                    canvas.validateBounds(point);
+                    canvas.fill(point, color);
                     printCanvas();
                 }
             } catch (DrawingException e) {
