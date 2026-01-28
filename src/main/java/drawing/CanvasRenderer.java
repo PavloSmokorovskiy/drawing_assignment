@@ -1,8 +1,10 @@
 package drawing;
 
-import static drawing.DrawingConstants.*;
+import static drawing.DrawingConstants.HORIZONTAL_BORDER;
+import static drawing.DrawingConstants.VERTICAL_BORDER;
 
 public final class CanvasRenderer {
+
     public String render(Canvas canvas) {
         var sb = new StringBuilder();
         int w = canvas.width(), h = canvas.height();

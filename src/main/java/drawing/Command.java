@@ -1,6 +1,7 @@
 package drawing;
 
-public interface Command {
+public sealed interface Command permits CreateCanvasCommand, DrawLineCommand, DrawRectangleCommand, BucketFillCommand, QuitCommand {
+
     void execute(DrawingContext context);
 
     default boolean shouldQuit() {

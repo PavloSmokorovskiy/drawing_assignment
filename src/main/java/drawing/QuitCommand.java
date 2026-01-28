@@ -1,6 +1,7 @@
 package drawing;
 
 public record QuitCommand() implements Command {
+
     @Override
     public void execute(DrawingContext ctx) {
     }

@@ -1,6 +1,7 @@
 package drawing;
 
 public final class CommandParser {
+
     public Command parse(String input) {
         if (input == null || input.isBlank()) {
             throw new DrawingException("Empty command");
@@ -19,27 +20,42 @@ public final class CommandParser {
         };
     }
 
-    private Command parseCanvas(String[] parts) {
-        int width = Integer.parseInt(parts[1]);
-        int height = Integer.parseInt(parts[2]);
-        return new CreateCanvasCommand(width, height);
+    private Command parseCanvas(String[] p) {
+        require(p, 3, "C <width> <height>");
+        return new CreateCanvasCommand(toInt(p[1], "width"), toInt(p[2], "height"));
     }
 
-    private Command parseLine(String[] parts) {
-        Point from = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-        Point to = new Point(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
-        return new DrawLineCommand(from, to);
+    private Command parseLine(String[] p) {
+        require(p, 5, "L <x1> <y1> <x2> <y2>");
+        return new DrawLineCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")), new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
     }
 
-    private Command parseRectangle(String[] parts) {
-        Point corner1 = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-        Point corner2 = new Point(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
-        return new DrawRectangleCommand(corner1, corner2);
+    private Command parseRectangle(String[] p) {
+        require(p, 5, "R <x1> <y1> <x2> <y2>");
+        return new DrawRectangleCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")), new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
     }
 
-    private Command parseFill(String[] parts) {
-        Point point = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-        char color = parts[3].charAt(0);
-        return new BucketFillCommand(point, color);
+    private Command parseFill(String[] p) {
+        require(p, 4, "B <x> <y> <color>");
+        if (p[3].length() != 1) {
+            throw new DrawingException("Color must be a single character");
+        }
+        return new BucketFillCommand(new Point(toInt(p[1], "x"), toInt(p[2], "y")), p[3].charAt(0));
+    }
+
+    private void require(String[] parts, int n, String usage) {
+        if (parts.length != n) {
+            throw new DrawingException("Usage: " + usage);
+        }
+    }
+
+    private int toInt(String s, String name) {
+        try {
+            int val = Integer.parseInt(s);
+            if (val <= 0) throw new DrawingException(name + " must be positive");
+            return val;
+        } catch (NumberFormatException e) {
+            throw new DrawingException(name + " must be a number");
+        }
     }
 }

@@ -1,11 +1,12 @@
 package drawing;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
 
-import static drawing.DrawingConstants.*;
+import static drawing.DrawingConstants.EMPTY_CHAR;
+import static drawing.DrawingConstants.LINE_CHAR;
 
-public class Canvas {
+public final class Canvas {
+
     private final int width;
     private final int height;
     private final char[][] pixels;
@@ -29,6 +30,18 @@ public class Canvas {
         return pixels;
     }
 
+    boolean isOutOfBounds(Point p) {
+        return p.x() < 1 || p.x() > width || p.y() < 1 || p.y() > height;
+    }
+
+    public void validateBounds(Point... points) {
+        for (Point p : points) {
+            if (isOutOfBounds(p)) {
+                throw new DrawingException("Coordinates out of canvas bounds");
+            }
+        }
+    }
+
     public char getPixel(Point p) {
         return pixels[p.y() - 1][p.x() - 1];
     }
@@ -38,54 +51,56 @@ public class Canvas {
     }
 
     public void drawLine(Point from, Point to) {
-        int minX = Math.min(from.x(), to.x()), maxX = Math.max(from.x(), to.x());
-        int minY = Math.min(from.y(), to.y()), maxY = Math.max(from.y(), to.y());
-        for (int y = minY; y <= maxY; y++)
-            for (int x = minX; x <= maxX; x++)
+        int x1 = Math.min(from.x(), to.x());
+        int x2 = Math.max(from.x(), to.x());
+        int y1 = Math.min(from.y(), to.y());
+        int y2 = Math.max(from.y(), to.y());
+
+        for (int y = y1; y <= y2; y++) {
+            for (int x = x1; x <= x2; x++) {
                 setPixel(new Point(x, y), LINE_CHAR);
+            }
+        }
     }
 
-    public void drawRectangle(Point corner1, Point corner2) {
-        drawLine(new Point(corner1.x(), corner1.y()), new Point(corner2.x(), corner1.y())); // верх
-        drawLine(new Point(corner1.x(), corner2.y()), new Point(corner2.x(), corner2.y())); // низ
-        drawLine(new Point(corner1.x(), corner1.y()), new Point(corner1.x(), corner2.y())); // лево
-        drawLine(new Point(corner2.x(), corner1.y()), new Point(corner2.x(), corner2.y())); // право
+    public void drawRectangle(Point a, Point b) {
+        Point topRight = new Point(b.x(), a.y());
+        Point bottomLeft = new Point(a.x(), b.y());
+
+        drawLine(a, topRight);
+        drawLine(bottomLeft, b);
+        drawLine(a, bottomLeft);
+        drawLine(topRight, b);
     }
 
     public void fill(Point start, char color) {
         char target = getPixel(start);
-        if (target == color)
+        if (target == color) {
             return;
+        }
 
-        Queue<Point> queue = new LinkedList<>();
+        var queue = new ArrayDeque<Point>();
         queue.add(start);
 
         while (!queue.isEmpty()) {
             Point p = queue.poll();
 
-            if (isOutOfBounds(p))
+            if (isOutOfBounds(p) || getPixel(p) != target) {
                 continue;
-            if (getPixel(p) != target)
-                continue;
+            }
 
             setPixel(p, color);
 
-            queue.add(p.moveX(1));
-            queue.add(p.moveX(-1));
-            queue.add(p.moveY(1));
-            queue.add(p.moveY(-1));
+            addIfValid(queue, p.moveX(1), target);
+            addIfValid(queue, p.moveX(-1), target);
+            addIfValid(queue, p.moveY(1), target);
+            addIfValid(queue, p.moveY(-1), target);
         }
     }
 
-    public boolean isOutOfBounds(Point p) {
-        return p.x() < 1 || p.x() > width || p.y() < 1 || p.y() > height;
-    }
-
-    public void validateBounds(Point... points) {
-        for (Point p : points) {
-            if (isOutOfBounds(p)) {
-                throw new DrawingException("Coordinates out of bounds");
-            }
+    private void addIfValid(ArrayDeque<Point> queue, Point p, char target) {
+        if (!isOutOfBounds(p) && getPixel(p) == target) {
+            queue.add(p);
         }
     }
 

@@ -1,6 +1,7 @@
 package drawing;
 
 public final class DrawingContext {
+
     private Canvas canvas;
 
     public Canvas getCanvas() {
