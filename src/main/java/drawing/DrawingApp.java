@@ -1,5 +1,7 @@
 package drawing;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class DrawingApp {
@@ -53,7 +55,8 @@ public class DrawingApp {
                 int x = Integer.parseInt(parts[1]);
                 int y = Integer.parseInt(parts[2]);
                 char color = parts[3].charAt(0);
-                System.out.println("Fill at (" + x + "," + y + ") with '" + color + "'");
+                fill(x, y, color);
+                printCanvas();
             }
         }
 
@@ -80,5 +83,31 @@ public class DrawingApp {
         for (int y = minY; y <= maxY; y++)
             for (int x = minX; x <= maxX; x++)
                 canvas[y - 1][x - 1] = 'x';
+    }
+
+    private static void fill(int startX, int startY, char color) {
+        char target = canvas[startY - 1][startX - 1];
+        if (target == color)
+            return;
+
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[] { startX, startY });
+
+        while (!queue.isEmpty()) {
+            int[] p = queue.poll();
+            int x = p[0], y = p[1];
+
+            if (x < 1 || x > width || y < 1 || y > height)
+                continue;
+            if (canvas[y - 1][x - 1] != target)
+                continue;
+
+            canvas[y - 1][x - 1] = color;
+
+            queue.add(new int[] { x + 1, y });
+            queue.add(new int[] { x - 1, y });
+            queue.add(new int[] { x, y + 1 });
+            queue.add(new int[] { x, y - 1 });
+        }
     }
 }
