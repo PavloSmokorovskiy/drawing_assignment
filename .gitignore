@@ -1,0 +1,9 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Java
+*.class
+target/
+*.jar
