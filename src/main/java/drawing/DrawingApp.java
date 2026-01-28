@@ -33,7 +33,16 @@ public class DrawingApp {
                 int y1 = Integer.parseInt(parts[2]);
                 int x2 = Integer.parseInt(parts[3]);
                 int y2 = Integer.parseInt(parts[4]);
-                System.out.println("Line from (" + x1 + "," + y1 + ") to (" + x2 + "," + y2 + ")");
+
+                int minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
+                int minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
+
+                for (int y = minY; y <= maxY; y++) {
+                    for (int x = minX; x <= maxX; x++) {
+                        canvas[y - 1][x - 1] = 'x';
+                    }
+                }
+                printCanvas();
             }
         }
 
