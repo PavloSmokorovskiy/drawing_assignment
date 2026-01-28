@@ -63,16 +63,6 @@ public final class Canvas {
         }
     }
 
-    public void drawRectangle(Point a, Point b) {
-        Point topRight = new Point(b.x(), a.y());
-        Point bottomLeft = new Point(a.x(), b.y());
-
-        drawLine(a, topRight);
-        drawLine(bottomLeft, b);
-        drawLine(a, bottomLeft);
-        drawLine(topRight, b);
-    }
-
     public void fill(Point start, char color) {
         char target = getPixel(start);
         if (target == color) {
