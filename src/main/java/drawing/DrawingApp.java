@@ -2,6 +2,8 @@ package drawing;
 
 import java.util.Scanner;
 
+import static drawing.DrawingConstants.*;
+
 public class DrawingApp {
     private static Canvas canvas;
 
@@ -63,17 +65,17 @@ public class DrawingApp {
         int w = canvas.width();
         int h = canvas.height();
 
-        System.out.println("-".repeat(w + 2));
+        System.out.println(String.valueOf(HORIZONTAL_BORDER).repeat(w + 2));
 
         for (int y = 0; y < h; y++) {
-            System.out.print("|");
+            System.out.print(VERTICAL_BORDER);
             for (int x = 0; x < w; x++) {
                 System.out.print(canvas.pixels()[y][x]);
             }
-            System.out.println("|");
+            System.out.println(VERTICAL_BORDER);
         }
 
-        System.out.println("-".repeat(w + 2));
+        System.out.println(String.valueOf(HORIZONTAL_BORDER).repeat(w + 2));
     }
 
     private static void requireCanvas() {

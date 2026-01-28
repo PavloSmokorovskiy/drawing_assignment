@@ -3,6 +3,8 @@ package drawing;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static drawing.DrawingConstants.*;
+
 public class Canvas {
     private final int width;
     private final int height;
@@ -40,7 +42,7 @@ public class Canvas {
         int minY = Math.min(from.y(), to.y()), maxY = Math.max(from.y(), to.y());
         for (int y = minY; y <= maxY; y++)
             for (int x = minX; x <= maxX; x++)
-                setPixel(new Point(x, y), 'x');
+                setPixel(new Point(x, y), LINE_CHAR);
     }
 
     public void drawRectangle(Point corner1, Point corner2) {
@@ -90,6 +92,6 @@ public class Canvas {
     private void clear() {
         for (int y = 0; y < height; y++)
             for (int x = 0; x < width; x++)
-                pixels[y][x] = ' ';
+                pixels[y][x] = EMPTY_CHAR;
     }
 }
