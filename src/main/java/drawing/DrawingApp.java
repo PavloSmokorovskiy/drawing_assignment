@@ -42,10 +42,10 @@ public class DrawingApp {
                 int y1 = Integer.parseInt(parts[2]);
                 int x2 = Integer.parseInt(parts[3]);
                 int y2 = Integer.parseInt(parts[4]);
-                drawLine(x1, y1, x2, y1); // верх
-                drawLine(x1, y2, x2, y2); // низ
-                drawLine(x1, y1, x1, y2); // лево
-                drawLine(x2, y1, x2, y2); // право
+                drawLine(x1, y1, x2, y1);
+                drawLine(x1, y2, x2, y2);
+                drawLine(x1, y1, x1, y2);
+                drawLine(x2, y1, x2, y2);
                 printCanvas();
             }
         }
