@@ -27,6 +27,14 @@ public class DrawingApp {
                         canvas[y][x] = ' ';
                 printCanvas();
             }
+
+            if (command.equals("L")) {
+                int x1 = Integer.parseInt(parts[1]);
+                int y1 = Integer.parseInt(parts[2]);
+                int x2 = Integer.parseInt(parts[3]);
+                int y2 = Integer.parseInt(parts[4]);
+                System.out.println("Line from (" + x1 + "," + y1 + ") to (" + x2 + "," + y2 + ")");
+            }
         }
 
         scanner.close();
@@ -43,7 +51,6 @@ public class DrawingApp {
             }
             System.out.println("|");
         }
-
 
         System.out.println("-".repeat(width + 2));
     }
