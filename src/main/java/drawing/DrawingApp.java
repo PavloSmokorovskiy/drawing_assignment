@@ -33,15 +33,7 @@ public class DrawingApp {
                 int y1 = Integer.parseInt(parts[2]);
                 int x2 = Integer.parseInt(parts[3]);
                 int y2 = Integer.parseInt(parts[4]);
-
-                int minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
-                int minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
-
-                for (int y = minY; y <= maxY; y++) {
-                    for (int x = minX; x <= maxX; x++) {
-                        canvas[y - 1][x - 1] = 'x';
-                    }
-                }
+                drawLine(x1, y1, x2, y2);
                 printCanvas();
             }
 
@@ -50,7 +42,11 @@ public class DrawingApp {
                 int y1 = Integer.parseInt(parts[2]);
                 int x2 = Integer.parseInt(parts[3]);
                 int y2 = Integer.parseInt(parts[4]);
-                System.out.println("Rectangle (" + x1 + "," + y1 + ") to (" + x2 + "," + y2 + ")");
+                drawLine(x1, y1, x2, y1); // верх
+                drawLine(x1, y2, x2, y2); // низ
+                drawLine(x1, y1, x1, y2); // лево
+                drawLine(x2, y1, x2, y2); // право
+                printCanvas();
             }
         }
 
@@ -58,7 +54,6 @@ public class DrawingApp {
     }
 
     private static void printCanvas() {
-
         System.out.println("-".repeat(width + 2));
 
         for (int y = 0; y < height; y++) {
@@ -70,5 +65,13 @@ public class DrawingApp {
         }
 
         System.out.println("-".repeat(width + 2));
+    }
+
+    private static void drawLine(int x1, int y1, int x2, int y2) {
+        int minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
+        int minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
+        for (int y = minY; y <= maxY; y++)
+            for (int x = minX; x <= maxX; x++)
+                canvas[y - 1][x - 1] = 'x';
     }
 }
