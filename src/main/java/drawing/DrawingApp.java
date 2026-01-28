@@ -31,19 +31,35 @@ public class DrawingApp {
             }
 
             if (command.equals("L")) {
+                if (canvas == null) {
+                    System.out.println("Error: Canvas not created. Use: C <width> <height>");
+                    continue;
+                }
                 int x1 = Integer.parseInt(parts[1]);
                 int y1 = Integer.parseInt(parts[2]);
                 int x2 = Integer.parseInt(parts[3]);
                 int y2 = Integer.parseInt(parts[4]);
+                if (isOutOfBounds(x1, y1) || isOutOfBounds(x2, y2)) {
+                    System.out.println("Error: Coordinates out of bounds");
+                    continue;
+                }
                 drawLine(x1, y1, x2, y2);
                 printCanvas();
             }
 
             if (command.equals("R")) {
+                if (canvas == null) {
+                    System.out.println("Error: Canvas not created. Use: C <width> <height>");
+                    continue;
+                }
                 int x1 = Integer.parseInt(parts[1]);
                 int y1 = Integer.parseInt(parts[2]);
                 int x2 = Integer.parseInt(parts[3]);
                 int y2 = Integer.parseInt(parts[4]);
+                if (isOutOfBounds(x1, y1) || isOutOfBounds(x2, y2)) {
+                    System.out.println("Error: Coordinates out of bounds");
+                    continue;
+                }
                 drawLine(x1, y1, x2, y1);
                 drawLine(x1, y2, x2, y2);
                 drawLine(x1, y1, x1, y2);
@@ -52,9 +68,17 @@ public class DrawingApp {
             }
 
             if (command.equals("B")) {
+                if (canvas == null) {
+                    System.out.println("Error: Canvas not created. Use: C <width> <height>");
+                    continue;
+                }
                 int x = Integer.parseInt(parts[1]);
                 int y = Integer.parseInt(parts[2]);
                 char color = parts[3].charAt(0);
+                if (isOutOfBounds(x, y)) {
+                    System.out.println("Error: Coordinates out of bounds");
+                    continue;
+                }
                 fill(x, y, color);
                 printCanvas();
             }
@@ -83,6 +107,10 @@ public class DrawingApp {
         for (int y = minY; y <= maxY; y++)
             for (int x = minX; x <= maxX; x++)
                 canvas[y - 1][x - 1] = 'x';
+    }
+
+    private static boolean isOutOfBounds(int x, int y) {
+        return x < 1 || x > width || y < 1 || y > height;
     }
 
     private static void fill(int startX, int startY, char color) {
