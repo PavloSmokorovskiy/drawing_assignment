@@ -25,10 +25,19 @@ public class DrawingApp {
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
                         canvas[y][x] = ' ';
-                System.out.println("Canvas created: " + width + "x" + height);
+                printCanvas();
             }
         }
 
         scanner.close();
+    }
+
+    private static void printCanvas() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                System.out.print(canvas[y][x]);
+            }
+            System.out.println();
+        }
     }
 }
