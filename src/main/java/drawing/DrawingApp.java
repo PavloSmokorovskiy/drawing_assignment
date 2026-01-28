@@ -7,15 +7,14 @@ public class DrawingApp {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\u001B[33mQ or q for exit");
-            System.out.print("\u001B[32mEnter command: ");
+            System.out.print("enter command: ");
             String input = scanner.nextLine();
+            String[] parts = input.trim().split("\\s+");
+            String command = parts[0].toUpperCase();
 
-            if (input.equals("Q") || input.equals("q")) {
+            if (command.equals("Q"))
                 break;
-            }
-
-            System.out.println("\u001B[0mYou entered: " + input);
+            System.out.println("Command: " + command + ", args: " + (parts.length - 1));
         }
 
         scanner.close();
