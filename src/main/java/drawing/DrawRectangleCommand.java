@@ -11,9 +11,9 @@ public record DrawRectangleCommand(Point corner1, Point corner2) implements Comm
         Point topRight = new Point(bottomRight.x(), topLeft.y());
         Point bottomLeft = new Point(topLeft.x(), bottomRight.y());
 
-        new DrawLineCommand(topLeft, topRight).execute(ctx); // top
-        new DrawLineCommand(bottomLeft, bottomRight).execute(ctx); // bottom
-        new DrawLineCommand(topLeft, bottomLeft).execute(ctx); // left
-        new DrawLineCommand(topRight, bottomRight).execute(ctx); // right
+        new DrawLineCommand(topLeft, topRight).execute(ctx);
+        new DrawLineCommand(bottomLeft, bottomRight).execute(ctx);
+        new DrawLineCommand(topLeft, bottomLeft).execute(ctx);
+        new DrawLineCommand(topRight, bottomRight).execute(ctx);
     }
 }

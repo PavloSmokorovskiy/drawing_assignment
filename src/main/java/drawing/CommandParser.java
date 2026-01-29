@@ -15,6 +15,8 @@ public final class CommandParser {
             case "L" -> parseLine(parts);
             case "R" -> parseRectangle(parts);
             case "B" -> parseFill(parts);
+            case "U" -> new UndoCommand();
+            case "Z" -> new RedoCommand();
             case "Q" -> new QuitCommand();
             default -> throw new DrawingException("Unknown command: " + type);
         };

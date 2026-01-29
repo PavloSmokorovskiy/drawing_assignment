@@ -10,4 +10,9 @@ public record QuitCommand() implements Command {
     public boolean shouldQuit() {
         return true;
     }
+
+    @Override
+    public boolean modifiesCanvas() {
+        return false;
+    }
 }

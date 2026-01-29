@@ -24,6 +24,10 @@ public final class DrawingApp {
                     return;
                 }
 
+                if (command.modifiesCanvas()) {
+                    context.getHistory().saveState(context.getCanvas());
+                }
+
                 command.execute(context);
 
                 if (context.getCanvas() != null) {
