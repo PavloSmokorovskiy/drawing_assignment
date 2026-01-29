@@ -1,5 +1,10 @@
 package drawing;
 
+import drawing.context.DrawingContext;
+import drawing.command.Command;
+import drawing.exception.DrawingException;
+import drawing.parser.CommandParser;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -12,7 +17,6 @@ public final class DrawingApp {
     private final boolean interactive;
     private final CommandParser parser = new CommandParser();
     private final DrawingContext context = new DrawingContext();
-    private final CanvasRenderer renderer = new CanvasRenderer();
 
     public DrawingApp(Scanner scanner, boolean interactive) {
         this.scanner = scanner;
@@ -41,10 +45,17 @@ public final class DrawingApp {
                     context.getHistory().saveState(context.getCanvas());
                 }
 
-                command.execute(context);
+                try {
+                    command.execute(context);
+                } catch (DrawingException e) {
+                    if (command.modifiesCanvas()) {
+                        context.getHistory().discardLastState();
+                    }
+                    throw e;
+                }
 
                 if (context.getCanvas() != null) {
-                    System.out.print(renderer.render(context.getCanvas()));
+                    System.out.print(context.getRenderer().render(context.getCanvas()));
                 }
 
             } catch (DrawingException e) {
