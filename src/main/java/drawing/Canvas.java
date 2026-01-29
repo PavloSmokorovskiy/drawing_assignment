@@ -18,6 +18,12 @@ public final class Canvas {
         clear();
     }
 
+    Canvas(int width, int height, char[][] pixels) {
+        this.width = width;
+        this.height = height;
+        this.pixels = pixels;
+    }
+
     public int width() {
         return width;
     }
