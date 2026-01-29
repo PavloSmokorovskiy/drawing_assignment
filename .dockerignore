@@ -1,0 +1,16 @@
+# Build outputs
+build/
+.gradle/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Other
+*.md
+LICENSE
