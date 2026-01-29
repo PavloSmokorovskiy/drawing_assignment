@@ -67,7 +67,8 @@ public final class DrawingApp {
 
     private static InputSource resolveInput(String[] args) throws IOException {
         if (args.length == 0) {
-            return new InputSource(System.in, true);
+            boolean interactive = System.console() != null;
+            return new InputSource(System.in, interactive);
         }
         if (args.length == 1) {
             Path path = Path.of(args[0]);

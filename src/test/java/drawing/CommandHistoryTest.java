@@ -176,4 +176,24 @@ class CommandHistoryTest {
             assertFalse(history.canRedo());
         }
     }
+
+    @Nested
+    class HistoryLimit {
+        @Test
+        void limitsUndoStackSize() {
+            Canvas canvas = new Canvas(5, 4);
+
+            for (int i = 0; i < 60; i++) {
+                history.saveState(canvas);
+            }
+
+            int undoCount = 0;
+            while (history.canUndo()) {
+                history.undo(canvas);
+                undoCount++;
+            }
+
+            assertEquals(50, undoCount);
+        }
+    }
 }

@@ -86,6 +86,46 @@ class CommandParserTest {
                     () -> parser.parse("B 10 3 oo"));
             assertTrue(ex.getMessage().contains("single character"));
         }
+
+        @Test
+        void rejectsLineCharAsColor() {
+            DrawingException ex = assertThrows(DrawingException.class,
+                    () -> parser.parse("B 10 3 x"));
+            assertTrue(ex.getMessage().contains("reserved for lines"));
+        }
+    }
+
+    @Nested
+    class Help {
+        @Test
+        void parsesHelpCommand() {
+            Command cmd = parser.parse("H");
+            assertInstanceOf(HelpCommand.class, cmd);
+        }
+
+        @Test
+        void helpCommandCaseInsensitive() {
+            assertInstanceOf(HelpCommand.class, parser.parse("h"));
+        }
+    }
+
+    @Nested
+    class Save {
+        @Test
+        void parsesSaveCommand() {
+            Command cmd = parser.parse("S output.txt");
+
+            assertInstanceOf(SaveCommand.class, cmd);
+            SaveCommand s = (SaveCommand) cmd;
+            assertEquals("output.txt", s.filename());
+        }
+
+        @Test
+        void rejectsSaveWithoutFilename() {
+            DrawingException ex = assertThrows(DrawingException.class,
+                    () -> parser.parse("S"));
+            assertTrue(ex.getMessage().contains("Usage"));
+        }
     }
 
     @Nested

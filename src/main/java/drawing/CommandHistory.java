@@ -6,14 +6,19 @@ import java.util.Optional;
 
 public final class CommandHistory {
 
+    private static final int MAX_HISTORY_SIZE = 50;
+
     private final Deque<Optional<CanvasMemento>> undoStack = new ArrayDeque<>();
     private final Deque<Optional<CanvasMemento>> redoStack = new ArrayDeque<>();
 
     public void saveState(Canvas canvas) {
-        Optional<CanvasMemento> memento = canvas == null
-                ? Optional.empty()
-                : Optional.of(CanvasMemento.from(canvas));
+        Optional<CanvasMemento> memento = canvas == null ? Optional.empty() : Optional.of(CanvasMemento.from(canvas));
         undoStack.push(memento);
+
+        if (undoStack.size() > MAX_HISTORY_SIZE) {
+            undoStack.removeLast();
+        }
+
         redoStack.clear();
     }
 
@@ -30,9 +35,7 @@ public final class CommandHistory {
             throw new DrawingException("Nothing to undo");
         }
 
-        Optional<CanvasMemento> currentMemento = currentCanvas == null
-                ? Optional.empty()
-                : Optional.of(CanvasMemento.from(currentCanvas));
+        Optional<CanvasMemento> currentMemento = currentCanvas == null ? Optional.empty() : Optional.of(CanvasMemento.from(currentCanvas));
         redoStack.push(currentMemento);
 
         return undoStack.pop();
@@ -43,9 +46,7 @@ public final class CommandHistory {
             throw new DrawingException("Nothing to redo");
         }
 
-        Optional<CanvasMemento> currentMemento = currentCanvas == null
-                ? Optional.empty()
-                : Optional.of(CanvasMemento.from(currentCanvas));
+        Optional<CanvasMemento> currentMemento = currentCanvas == null ? Optional.empty() : Optional.of(CanvasMemento.from(currentCanvas));
         undoStack.push(currentMemento);
 
         return redoStack.pop();

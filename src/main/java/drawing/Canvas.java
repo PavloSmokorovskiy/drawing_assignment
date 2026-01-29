@@ -43,7 +43,9 @@ public final class Canvas {
     public void validateBounds(Point... points) {
         for (Point p : points) {
             if (isOutOfBounds(p)) {
-                throw new DrawingException("Coordinates out of canvas bounds");
+                throw new DrawingException(
+                        "Point (%d,%d) out of bounds (canvas: %dx%d)"
+                                .formatted(p.x(), p.y(), width, height));
             }
         }
     }

@@ -1,6 +1,6 @@
 package drawing;
 
-public sealed interface Command permits CreateCanvasCommand, DrawLineCommand, DrawRectangleCommand, BucketFillCommand, QuitCommand, UndoCommand, RedoCommand {
+public sealed interface Command permits CreateCanvasCommand, DrawLineCommand, DrawRectangleCommand, BucketFillCommand, QuitCommand, UndoCommand, RedoCommand, HelpCommand, SaveCommand {
 
     void execute(DrawingContext context);
 
