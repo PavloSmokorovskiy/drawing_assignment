@@ -24,9 +24,14 @@ public final class DrawingApp {
     }
 
     public void run() {
-        while (scanner.hasNextLine()) {
+        while (true) {
             if (interactive) {
                 System.out.print("enter command: ");
+                System.out.flush();
+            }
+
+            if (!scanner.hasNextLine()) {
+                break;
             }
 
             try {
@@ -78,8 +83,7 @@ public final class DrawingApp {
 
     private static InputSource resolveInput(String[] args) throws IOException {
         if (args.length == 0) {
-            boolean interactive = System.console() != null;
-            return new InputSource(System.in, interactive);
+            return new InputSource(System.in, true);
         }
         if (args.length == 1) {
             Path path = Path.of(args[0]);
