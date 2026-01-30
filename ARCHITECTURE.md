@@ -29,7 +29,7 @@ Action → Save State → Execute → [Undo] → Restore State
 ```
 
 **Why Memento over Command.undo()?**
-- Simpler implementation: save entire state vs. reverse each operation
+- Simpler implementation: save an entire state vs. reverse each operation
 - Some operations (flood fill) are expensive to reverse
 - Consistent behavior regardless of command complexity
 
@@ -45,14 +45,14 @@ Command → Context → Console (interface)
 
 ## Key Design Decisions
 
-| Decision | Rationale |
-|----------|-----------|
-| **Sealed interface** | Compiler enforces exhaustive switch expressions |
-| **Records for commands** | Immutable, auto-generated equals/hashCode, concise |
-| **BFS with HashSet** | O(n) flood fill vs O(n²) with naive visited list |
-| **LinkedList for stacks** | Supports null elements (canvas before creation) |
-| **Package-private access** | `PixelArrays`, `copyPixels()` hidden from external use |
-| **Defensive copying** | `CanvasMemento` copies pixels to prevent state corruption |
+| Decision                   | Rationale                                                 |
+|----------------------------|-----------------------------------------------------------|
+| **Sealed interface**       | Compiler enforces exhaustive switch expressions           |
+| **Records for commands**   | Immutable, auto-generated equals/hashCode, concise        |
+| **BFS with HashSet**       | O(n) flood fill vs O(n²) with naive visited list          |
+| **LinkedList for stacks**  | Supports null elements (canvas before creation)           |
+| **Package-private access** | `PixelArrays`, `copyPixels()` hidden from external use    |
+| **Defensive copying**      | `CanvasMemento` copies pixels to prevent state corruption |
 
 ## Package Structure
 
@@ -103,17 +103,16 @@ drawing/
 
 Uses **Breadth-First Search** with a `HashSet` for visited tracking:
 
-```java
-var queue = new ArrayDeque<Point>();
-var visited = new HashSet<Point>();  // O(1) contains check
-queue.offer(start);
-visited.add(start);
+```
+queue = new ArrayDeque<Point>()
+visited = new HashSet<Point>()    // O(1) contains check
+queue.offer(start)
+visited.add(start)
 
-while (!queue.isEmpty()) {
-    var p = queue.poll();
-    setPixel(p, color);
+while (!queue.isEmpty()):
+    p = queue.poll()
+    setPixel(p, color)
     // Add unvisited neighbors with matching color
-}
 ```
 
 **Complexity:** O(n) where n = pixels to fill
@@ -124,9 +123,9 @@ while (!queue.isEmpty()) {
 
 Supports horizontal and vertical lines only (per requirements). Uses `Math.min/max` to handle any direction:
 
-```java
-var x1 = Math.min(from.x(), to.x());
-var x2 = Math.max(from.x(), to.x());
+```
+x1 = Math.min(from.x(), to.x())
+x2 = Math.max(from.x(), to.x())
 // Works regardless of input order
 ```
 
@@ -138,21 +137,21 @@ Single `DrawingException` for all application errors:
 - Validation errors (out of bounds, invalid color)
 - State errors (no canvas, nothing to undo)
 
-**Why single exception?** All errors are handled identically (display message). Hierarchy would be over-engineering.
+**Why a single exception?** All errors are handled identically (display message). Hierarchy would be overengineering.
 
 ## Testability
 
 1. **Console abstraction** — `TestConsole` captures output without mocking
-2. **Pure domain logic** — Canvas operations are side-effect free
+2. **Pure domain logic** — Canvas operations are side-effect-free
 3. **Immutable commands** — No shared mutable state
 4. **Integration tests** — Full scenarios test command interactions
 
 ## Trade-offs Considered
 
-| Alternative | Why Not Chosen |
-|-------------|----------------|
-| Spring DI | Overkill for CLI app scope |
-| Command.undo() method | Complex to reverse flood fill |
-| Exception hierarchy | All errors handled same way |
+| Alternative               | Why Not Chosen                     |
+|---------------------------|------------------------------------|
+| Spring DI                 | Overkill for CLI app scope         |
+| Command.undo() method     | Complex to reverse flood fill      |
+| Exception hierarchy       | All errors handled same way        |
 | Storing borders in Canvas | Borders are presentation, not data |
-| ArrayDeque for history | Doesn't support null elements |
+| ArrayDeque for history    | Doesn't support null elements      |
