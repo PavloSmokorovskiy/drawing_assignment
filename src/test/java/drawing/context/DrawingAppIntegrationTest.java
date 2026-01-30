@@ -1,6 +1,5 @@
 package drawing.context;
 
-import drawing.context.DrawingContext;
 import drawing.canvas.Point;
 import drawing.command.Command;
 import drawing.exception.DrawingException;

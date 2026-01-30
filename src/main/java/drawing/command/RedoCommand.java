@@ -1,7 +1,6 @@
 package drawing.command;
 
 import drawing.context.DrawingContext;
-import drawing.canvas.CanvasMemento;
 
 public record RedoCommand() implements Command {
 

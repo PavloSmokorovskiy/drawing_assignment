@@ -22,10 +22,12 @@ class CanvasRendererTest {
         String result = renderer.render(canvas);
 
         String expected =
-                "------\n" +
-                "|    |\n" +
-                "|    |\n" +
-                "------\n";
+                """
+                        ------
+                        |    |
+                        |    |
+                        ------
+                        """;
 
         assertEquals(expected, result);
     }
@@ -38,10 +40,12 @@ class CanvasRendererTest {
         String result = renderer.render(canvas);
 
         String expected =
-                "------\n" +
-                "|xxxx|\n" +
-                "|    |\n" +
-                "------\n";
+                """
+                        ------
+                        |xxxx|
+                        |    |
+                        ------
+                        """;
 
         assertEquals(expected, result);
     }
@@ -54,10 +58,12 @@ class CanvasRendererTest {
         String result = renderer.render(canvas);
 
         String expected =
-                "------\n" +
-                "|oooo|\n" +
-                "|oooo|\n" +
-                "------\n";
+                """
+                        ------
+                        |oooo|
+                        |oooo|
+                        ------
+                        """;
 
         assertEquals(expected, result);
     }
@@ -71,11 +77,13 @@ class CanvasRendererTest {
         String result = renderer.render(canvas);
 
         String expected =
-                "-------\n" +
-                "|xxxxx|\n" +
-                "|  x  |\n" +
-                "|  x  |\n" +
-                "-------\n";
+                """
+                        -------
+                        |xxxxx|
+                        |  x  |
+                        |  x  |
+                        -------
+                        """;
 
         assertEquals(expected, result);
     }
