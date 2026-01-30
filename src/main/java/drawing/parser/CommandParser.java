@@ -44,15 +44,15 @@ public final class CommandParser {
 
     private Command parseLine(String[] p) {
         require(p, 5, "L <x1> <y1> <x2> <y2>");
-        Point from = new Point(toInt(p[1], "x1"), toInt(p[2], "y1"));
-        Point to = new Point(toInt(p[3], "x2"), toInt(p[4], "y2"));
+        var from = new Point(toInt(p[1], "x1"), toInt(p[2], "y1"));
+        var to = new Point(toInt(p[3], "x2"), toInt(p[4], "y2"));
         return new DrawLineCommand(from, to);
     }
 
     private Command parseRectangle(String[] p) {
         require(p, 5, "R <x1> <y1> <x2> <y2>");
-        Point corner1 = new Point(toInt(p[1], "x1"), toInt(p[2], "y1"));
-        Point corner2 = new Point(toInt(p[3], "x2"), toInt(p[4], "y2"));
+        var corner1 = new Point(toInt(p[1], "x1"), toInt(p[2], "y1"));
+        var corner2 = new Point(toInt(p[3], "x2"), toInt(p[4], "y2"));
         return new DrawRectangleCommand(corner1, corner2);
     }
 
@@ -61,7 +61,7 @@ public final class CommandParser {
         if (p[3].length() != 1) {
             throw new DrawingException("Color must be a single character");
         }
-        char color = p[3].charAt(0);
+        var color = p[3].charAt(0);
         return new BucketFillCommand(new Point(toInt(p[1], "x"), toInt(p[2], "y")), color);
     }
 
@@ -78,7 +78,7 @@ public final class CommandParser {
 
     private int toInt(String s, String name) {
         try {
-            int val = Integer.parseInt(s);
+            var val = Integer.parseInt(s);
             if (val <= 0) {
                 throw new DrawingException(name + " must be positive");
             }

@@ -15,7 +15,7 @@ public final class CommandHistory {
     private final Deque<CanvasMemento> redoStack = new LinkedList<>();
 
     public void saveState(Canvas canvas) {
-        CanvasMemento memento = canvas == null ? null : CanvasMemento.from(canvas);
+        var memento = canvas == null ? null : CanvasMemento.from(canvas);
         undoStack.push(memento);
 
         if (undoStack.size() > MAX_HISTORY_SIZE) {
@@ -44,7 +44,7 @@ public final class CommandHistory {
             throw new DrawingException("Nothing to undo");
         }
 
-        CanvasMemento currentMemento = currentCanvas == null ? null : CanvasMemento.from(currentCanvas);
+        var currentMemento = currentCanvas == null ? null : CanvasMemento.from(currentCanvas);
         redoStack.push(currentMemento);
 
         return undoStack.pop();
@@ -55,7 +55,7 @@ public final class CommandHistory {
             throw new DrawingException("Nothing to redo");
         }
 
-        CanvasMemento currentMemento = currentCanvas == null ? null : CanvasMemento.from(currentCanvas);
+        var currentMemento = currentCanvas == null ? null : CanvasMemento.from(currentCanvas);
         undoStack.push(currentMemento);
 
         return redoStack.pop();

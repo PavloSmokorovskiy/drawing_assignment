@@ -92,7 +92,7 @@ class DrawRectangleCommandTest {
     class Validation {
         @Test
         void rejectsOutOfBoundsCorner() {
-            DrawRectangleCommand cmd = new DrawRectangleCommand(
+            var cmd = new DrawRectangleCommand(
                     new Point(0, 1), new Point(5, 4));
 
             assertThrows(DrawingException.class, () -> cmd.execute(context));
@@ -100,8 +100,8 @@ class DrawRectangleCommandTest {
 
         @Test
         void requiresCanvas() {
-            DrawingContext emptyContext = new DrawingContext();
-            DrawRectangleCommand cmd = new DrawRectangleCommand(
+            var emptyContext = new DrawingContext();
+            var cmd = new DrawRectangleCommand(
                     new Point(1, 1), new Point(3, 3));
 
             assertThrows(DrawingException.class, () -> cmd.execute(emptyContext));
@@ -110,7 +110,7 @@ class DrawRectangleCommandTest {
 
     @Test
     void modifiesCanvas() {
-        DrawRectangleCommand cmd = new DrawRectangleCommand(
+        var cmd = new DrawRectangleCommand(
                 new Point(1, 1), new Point(3, 3));
         assertTrue(cmd.modifiesCanvas());
     }

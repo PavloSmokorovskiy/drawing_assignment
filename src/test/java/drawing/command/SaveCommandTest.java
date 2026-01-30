@@ -35,11 +35,11 @@ class SaveCommandTest {
             context.setCanvas(new Canvas(5, 3));
             context.getCanvas().drawLine(new Point(1, 1), new Point(5, 1));
 
-            Path outputFile = tempDir.resolve("output.txt");
+            var outputFile = tempDir.resolve("output.txt");
             new SaveCommand(outputFile.toString()).execute(context);
 
             assertTrue(Files.exists(outputFile));
-            String content = Files.readString(outputFile);
+            var content = Files.readString(outputFile);
             assertTrue(content.contains("xxxxx"));
         }
 
@@ -47,7 +47,7 @@ class SaveCommandTest {
         void printsConfirmationMessage(@TempDir Path tempDir) {
             context.setCanvas(new Canvas(5, 3));
 
-            Path outputFile = tempDir.resolve("output.txt");
+            var outputFile = tempDir.resolve("output.txt");
             new SaveCommand(outputFile.toString()).execute(context);
 
             assertTrue(console.getOutput().contains("Canvas saved to:"));

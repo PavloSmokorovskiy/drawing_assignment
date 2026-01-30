@@ -109,13 +109,13 @@ class RedoCommandTest {
 
     @Test
     void doesNotModifyCanvas() {
-        RedoCommand cmd = new RedoCommand();
+        var cmd = new RedoCommand();
         assertFalse(cmd.modifiesCanvas());
     }
 
     @Test
     void doesNotQuit() {
-        RedoCommand cmd = new RedoCommand();
+        var cmd = new RedoCommand();
         assertFalse(cmd.shouldQuit());
     }
 }

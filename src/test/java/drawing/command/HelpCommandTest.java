@@ -16,7 +16,7 @@ class HelpCommandTest {
 
         new HelpCommand().execute(context);
 
-        String result = console.getOutput();
+        var result = console.getOutput();
         assertTrue(result.contains("Commands:"));
         assertTrue(result.contains("C w h"));
         assertTrue(result.contains("L x1 y1 x2 y2"));

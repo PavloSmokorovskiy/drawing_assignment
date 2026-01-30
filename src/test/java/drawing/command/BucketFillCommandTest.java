@@ -29,8 +29,8 @@ class BucketFillCommandTest {
         void fillsEntireEmptyCanvas() {
             new BucketFillCommand(new Point(1, 1), 'o').execute(context);
 
-            for (int y = 1; y <= 4; y++) {
-                for (int x = 1; x <= 5; x++) {
+            for (var y = 1; y <= 4; y++) {
+                for (var x = 1; x <= 5; x++) {
                     assertEquals('o', context.getCanvas().getPixel(new Point(x, y)));
                 }
             }
@@ -62,8 +62,8 @@ class BucketFillCommandTest {
             new BucketFillCommand(new Point(1, 1), 'o').execute(context);
             new BucketFillCommand(new Point(3, 3), 'o').execute(context);
 
-            for (int y = 1; y <= 4; y++) {
-                for (int x = 1; x <= 5; x++) {
+            for (var y = 1; y <= 4; y++) {
+                for (var x = 1; x <= 5; x++) {
                     assertEquals('o', context.getCanvas().getPixel(new Point(x, y)));
                 }
             }
@@ -77,7 +77,7 @@ class BucketFillCommandTest {
             new DrawLineCommand(new Point(1, 2), new Point(5, 2)).execute(context);
             new BucketFillCommand(new Point(3, 2), 'o').execute(context);
 
-            for (int x = 1; x <= 5; x++) {
+            for (var x = 1; x <= 5; x++) {
                 assertEquals('o', context.getCanvas().getPixel(new Point(x, 2)));
             }
             assertEquals(EMPTY_CHAR, context.getCanvas().getPixel(new Point(1, 1)));
@@ -88,31 +88,31 @@ class BucketFillCommandTest {
     class Validation {
         @Test
         void rejectsOutOfBoundsPoint() {
-            BucketFillCommand cmd = new BucketFillCommand(new Point(0, 1), 'o');
+            var cmd = new BucketFillCommand(new Point(0, 1), 'o');
 
             assertThrows(DrawingException.class, () -> cmd.execute(context));
         }
 
         @Test
         void requiresCanvas() {
-            DrawingContext emptyContext = new DrawingContext();
-            BucketFillCommand cmd = new BucketFillCommand(new Point(1, 1), 'o');
+            var emptyContext = new DrawingContext();
+            var cmd = new BucketFillCommand(new Point(1, 1), 'o');
 
             assertThrows(DrawingException.class, () -> cmd.execute(emptyContext));
         }
 
         @Test
         void rejectsLineCharAsColor() {
-            BucketFillCommand cmd = new BucketFillCommand(new Point(1, 1), LINE_CHAR);
+            var cmd = new BucketFillCommand(new Point(1, 1), LINE_CHAR);
 
-            DrawingException ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
+            var ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
             assertTrue(ex.getMessage().contains("reserved for lines"));
         }
     }
 
     @Test
     void modifiesCanvas() {
-        BucketFillCommand cmd = new BucketFillCommand(new Point(1, 1), 'o');
+        var cmd = new BucketFillCommand(new Point(1, 1), 'o');
         assertTrue(cmd.modifiesCanvas());
     }
 }

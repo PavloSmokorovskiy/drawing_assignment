@@ -41,8 +41,8 @@ class CreateCanvasCommandTest {
         void createsEmptyCanvas() {
             new CreateCanvasCommand(5, 4).execute(context);
 
-            for (int y = 1; y <= 4; y++) {
-                for (int x = 1; x <= 5; x++) {
+            for (var y = 1; y <= 4; y++) {
+                for (var x = 1; x <= 5; x++) {
                     assertEquals(EMPTY_CHAR, context.getCanvas().getPixel(new Point(x, y)));
                 }
             }
@@ -71,30 +71,30 @@ class CreateCanvasCommandTest {
 
         @Test
         void rejectsWidthExceedingMaximum() {
-            CreateCanvasCommand cmd = new CreateCanvasCommand(MAX_CANVAS_WIDTH + 1, 10);
+            var cmd = new CreateCanvasCommand(MAX_CANVAS_WIDTH + 1, 10);
 
-            DrawingException ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
+            var ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
             assertTrue(ex.getMessage().contains("exceeds maximum"));
         }
 
         @Test
         void rejectsHeightExceedingMaximum() {
-            CreateCanvasCommand cmd = new CreateCanvasCommand(10, MAX_CANVAS_HEIGHT + 1);
+            var cmd = new CreateCanvasCommand(10, MAX_CANVAS_HEIGHT + 1);
 
-            DrawingException ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
+            var ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
             assertTrue(ex.getMessage().contains("exceeds maximum"));
         }
     }
 
     @Test
     void modifiesCanvas() {
-        CreateCanvasCommand cmd = new CreateCanvasCommand(5, 4);
+        var cmd = new CreateCanvasCommand(5, 4);
         assertTrue(cmd.modifiesCanvas());
     }
 
     @Test
     void doesNotQuit() {
-        CreateCanvasCommand cmd = new CreateCanvasCommand(5, 4);
+        var cmd = new CreateCanvasCommand(5, 4);
         assertFalse(cmd.shouldQuit());
     }
 }

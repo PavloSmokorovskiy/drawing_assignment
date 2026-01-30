@@ -49,7 +49,7 @@ public final class Canvas {
     }
 
     public void validateBounds(Point... points) {
-        for (Point p : points) {
+        for (var p : points) {
             if (isOutOfBounds(p)) {
                 throw new DrawingException(
                         "Point (%d,%d) out of bounds (canvas: %dx%d)"
@@ -67,20 +67,20 @@ public final class Canvas {
     }
 
     public void drawLine(Point from, Point to) {
-        int x1 = Math.min(from.x(), to.x());
-        int x2 = Math.max(from.x(), to.x());
-        int y1 = Math.min(from.y(), to.y());
-        int y2 = Math.max(from.y(), to.y());
+        var x1 = Math.min(from.x(), to.x());
+        var x2 = Math.max(from.x(), to.x());
+        var y1 = Math.min(from.y(), to.y());
+        var y2 = Math.max(from.y(), to.y());
 
-        for (int y = y1; y <= y2; y++) {
-            for (int x = x1; x <= x2; x++) {
+        for (var y = y1; y <= y2; y++) {
+            for (var x = x1; x <= x2; x++) {
                 setPixel(new Point(x, y), LINE_CHAR);
             }
         }
     }
 
     public void fill(Point start, char color) {
-        char target = getPixel(start);
+        var target = getPixel(start);
         if (target == color) {
             return;
         }
@@ -91,7 +91,7 @@ public final class Canvas {
         visited.add(start);
 
         while (!queue.isEmpty()) {
-            Point p = queue.poll();
+            var p = queue.poll();
             setPixel(p, color);
 
             addIfNotVisited(queue, visited, p.moveX(1), target);
@@ -109,8 +109,8 @@ public final class Canvas {
     }
 
     private void clear() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (var y = 0; y < height; y++) {
+            for (var x = 0; x < width; x++) {
                 pixels[y][x] = EMPTY_CHAR;
             }
         }

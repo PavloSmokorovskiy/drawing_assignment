@@ -29,7 +29,7 @@ class DrawingAppInputSourceTest {
             var scanner = new Scanner(input);
             new DrawingApp(scanner, true).run();
 
-            String result = output.toString();
+            var result = output.toString();
             assertTrue(result.contains("enter command:"));
         }
     }
@@ -38,7 +38,7 @@ class DrawingAppInputSourceTest {
     class FileInputMode {
         @Test
         void executesCommandsFromFile(@TempDir Path tempDir) throws Exception {
-            Path inputFile = tempDir.resolve("commands.txt");
+            var inputFile = tempDir.resolve("commands.txt");
             Files.writeString(inputFile, """
                 C 10 4
                 L 1 1 5 1
@@ -51,14 +51,14 @@ class DrawingAppInputSourceTest {
             var scanner = new Scanner(Files.newInputStream(inputFile));
             new DrawingApp(scanner, false).run();
 
-            String result = output.toString();
+            var result = output.toString();
             assertFalse(result.contains("enter command:"));
             assertTrue(result.contains("------------"));
         }
 
         @Test
         void handlesBlankLinesInFile(@TempDir Path tempDir) throws Exception {
-            Path inputFile = tempDir.resolve("commands.txt");
+            var inputFile = tempDir.resolve("commands.txt");
             Files.writeString(inputFile, """
                 C 5 4
 
@@ -75,7 +75,7 @@ class DrawingAppInputSourceTest {
 
         @Test
         void stopsAtEndOfFile(@TempDir Path tempDir) throws Exception {
-            Path inputFile = tempDir.resolve("commands.txt");
+            var inputFile = tempDir.resolve("commands.txt");
             Files.writeString(inputFile, """
                 C 5 4
                 L 1 1 3 1
@@ -92,7 +92,7 @@ class DrawingAppInputSourceTest {
     class ErrorsInFileMode {
         @Test
         void continuesAfterErrorInFile(@TempDir Path tempDir) throws Exception {
-            Path inputFile = tempDir.resolve("commands.txt");
+            var inputFile = tempDir.resolve("commands.txt");
             Files.writeString(inputFile, """
                 C 5 4
                 L 0 0 3 1
@@ -106,7 +106,7 @@ class DrawingAppInputSourceTest {
             var scanner = new Scanner(Files.newInputStream(inputFile));
             new DrawingApp(scanner, false).run();
 
-            String result = output.toString();
+            var result = output.toString();
             assertTrue(result.contains("Error:"));
             assertTrue(result.contains("xxx"));
         }

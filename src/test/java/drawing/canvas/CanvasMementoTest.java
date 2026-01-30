@@ -10,10 +10,10 @@ class CanvasMementoTest {
 
     @Test
     void createsSnapshotOfCanvas() {
-        Canvas canvas = new Canvas(5, 4);
+        var canvas = new Canvas(5, 4);
         canvas.drawLine(new Point(1, 1), new Point(3, 1));
 
-        CanvasMemento memento = CanvasMemento.from(canvas);
+        var memento = CanvasMemento.from(canvas);
 
         assertEquals(5, memento.width());
         assertEquals(4, memento.height());
@@ -21,25 +21,25 @@ class CanvasMementoTest {
 
     @Test
     void snapshotIsImmutableWhenOriginalChanges() {
-        Canvas canvas = new Canvas(5, 4);
+        var canvas = new Canvas(5, 4);
         canvas.drawLine(new Point(1, 1), new Point(3, 1));
 
-        CanvasMemento memento = CanvasMemento.from(canvas);
+        var memento = CanvasMemento.from(canvas);
 
         canvas.drawLine(new Point(1, 2), new Point(3, 2));
 
-        Canvas restored = memento.restore();
+        var restored = memento.restore();
         assertEquals(LINE_CHAR, restored.getPixel(new Point(1, 1)));
         assertEquals(EMPTY_CHAR, restored.getPixel(new Point(1, 2)));
     }
 
     @Test
     void restoredCanvasIsIndependent() {
-        Canvas original = new Canvas(5, 4);
+        var original = new Canvas(5, 4);
         original.drawLine(new Point(1, 1), new Point(3, 1));
 
-        CanvasMemento memento = CanvasMemento.from(original);
-        Canvas restored = memento.restore();
+        var memento = CanvasMemento.from(original);
+        var restored = memento.restore();
 
         restored.drawLine(new Point(1, 2), new Point(3, 2));
 
@@ -49,10 +49,10 @@ class CanvasMementoTest {
 
     @Test
     void restoresEmptyCanvas() {
-        Canvas canvas = new Canvas(3, 3);
-        CanvasMemento memento = CanvasMemento.from(canvas);
+        var canvas = new Canvas(3, 3);
+        var memento = CanvasMemento.from(canvas);
 
-        Canvas restored = memento.restore();
+        var restored = memento.restore();
 
         for (int y = 1; y <= 3; y++) {
             for (int x = 1; x <= 3; x++) {
@@ -63,13 +63,13 @@ class CanvasMementoTest {
 
     @Test
     void multipleRestoresAreIndependent() {
-        Canvas canvas = new Canvas(5, 4);
+        var canvas = new Canvas(5, 4);
         canvas.drawLine(new Point(2, 2), new Point(4, 2));
 
-        CanvasMemento memento = CanvasMemento.from(canvas);
+        var memento = CanvasMemento.from(canvas);
 
-        Canvas restored1 = memento.restore();
-        Canvas restored2 = memento.restore();
+        var restored1 = memento.restore();
+        var restored2 = memento.restore();
 
         restored1.fill(new Point(1, 1), 'o');
 

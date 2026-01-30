@@ -17,11 +17,11 @@ class CanvasRendererTest {
 
     @Test
     void rendersEmptyCanvas() {
-        Canvas canvas = new Canvas(4, 2);
+        var canvas = new Canvas(4, 2);
 
-        String result = renderer.render(canvas);
+        var result = renderer.render(canvas);
 
-        String expected =
+        var expected =
                 """
                         ------
                         |    |
@@ -34,12 +34,12 @@ class CanvasRendererTest {
 
     @Test
     void rendersCanvasWithLine() {
-        Canvas canvas = new Canvas(4, 2);
+        var canvas = new Canvas(4, 2);
         canvas.drawLine(new Point(1, 1), new Point(4, 1));
 
-        String result = renderer.render(canvas);
+        var result = renderer.render(canvas);
 
-        String expected =
+        var expected =
                 """
                         ------
                         |xxxx|
@@ -52,12 +52,12 @@ class CanvasRendererTest {
 
     @Test
     void rendersCanvasWithFill() {
-        Canvas canvas = new Canvas(4, 2);
+        var canvas = new Canvas(4, 2);
         canvas.fill(new Point(1, 1), 'o');
 
-        String result = renderer.render(canvas);
+        var result = renderer.render(canvas);
 
-        String expected =
+        var expected =
                 """
                         ------
                         |oooo|
@@ -70,13 +70,13 @@ class CanvasRendererTest {
 
     @Test
     void rendersComplexDrawing() {
-        Canvas canvas = new Canvas(5, 3);
+        var canvas = new Canvas(5, 3);
         canvas.drawLine(new Point(1, 1), new Point(5, 1));
         canvas.drawLine(new Point(3, 1), new Point(3, 3));
 
-        String result = renderer.render(canvas);
+        var result = renderer.render(canvas);
 
-        String expected =
+        var expected =
                 """
                         -------
                         |xxxxx|
@@ -90,9 +90,9 @@ class CanvasRendererTest {
 
     @Test
     void rendersBordersCorrectly() {
-        Canvas canvas = new Canvas(2, 1);
+        var canvas = new Canvas(2, 1);
 
-        String result = renderer.render(canvas);
+        var result = renderer.render(canvas);
 
         assertTrue(result.startsWith("----\n"));
         assertTrue(result.contains("|"));

@@ -100,13 +100,13 @@ class UndoCommandTest {
 
     @Test
     void doesNotModifyCanvas() {
-        UndoCommand cmd = new UndoCommand();
+        var cmd = new UndoCommand();
         assertFalse(cmd.modifiesCanvas());
     }
 
     @Test
     void doesNotQuit() {
-        UndoCommand cmd = new UndoCommand();
+        var cmd = new UndoCommand();
         assertFalse(cmd.shouldQuit());
     }
 }

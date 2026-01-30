@@ -27,7 +27,7 @@ class DrawingAppIntegrationTest {
     }
 
     private void executeWithHistory(String input) {
-        Command cmd = parser.parse(input);
+        var cmd = parser.parse(input);
         if (cmd.modifiesCanvas()) {
             context.getHistory().saveState(context.getCanvas());
         }
@@ -43,7 +43,7 @@ class DrawingAppIntegrationTest {
             assertEquals(4, context.getCanvas().height());
 
             executeWithHistory("L 1 2 6 2");
-            for (int x = 1; x <= 6; x++) {
+            for (var x = 1; x <= 6; x++) {
                 assertEquals(LINE_CHAR, context.getCanvas().getPixel(new Point(x, 2)));
             }
 
@@ -52,11 +52,11 @@ class DrawingAppIntegrationTest {
             assertEquals(LINE_CHAR, context.getCanvas().getPixel(new Point(6, 4)));
 
             executeWithHistory("R 14 1 18 3");
-            for (int x = 14; x <= 18; x++) {
+            for (var x = 14; x <= 18; x++) {
                 assertEquals(LINE_CHAR, context.getCanvas().getPixel(new Point(x, 1)));
                 assertEquals(LINE_CHAR, context.getCanvas().getPixel(new Point(x, 3)));
             }
-            for (int y = 1; y <= 3; y++) {
+            for (var y = 1; y <= 3; y++) {
                 assertEquals(LINE_CHAR, context.getCanvas().getPixel(new Point(14, y)));
                 assertEquals(LINE_CHAR, context.getCanvas().getPixel(new Point(18, y)));
             }

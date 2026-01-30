@@ -37,7 +37,7 @@ class CommandHistoryTest {
 
         @Test
         void savesCanvasState() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
             history.saveState(canvas);
 
             assertTrue(history.canUndo());
@@ -45,7 +45,7 @@ class CommandHistoryTest {
 
         @Test
         void clearsRedoStackOnNewSave() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
             history.saveState(canvas);
             history.undo(canvas);
 
@@ -61,9 +61,9 @@ class CommandHistoryTest {
     class Undo {
         @Test
         void throwsWhenNothingToUndo() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
 
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> history.undo(canvas));
             assertTrue(ex.getMessage().contains("undo"));
         }
@@ -71,35 +71,35 @@ class CommandHistoryTest {
         @Test
         void returnsNullForNullState() {
             history.saveState(null);
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
 
-            CanvasMemento result = history.undo(canvas);
+            var result = history.undo(canvas);
 
             assertNull(result);
         }
 
         @Test
         void returnsPreviousState() {
-            Canvas original = new Canvas(5, 4);
+            var original = new Canvas(5, 4);
             original.drawLine(new Point(1, 1), new Point(3, 1));
             history.saveState(original);
 
-            Canvas modified = new Canvas(5, 4);
+            var modified = new Canvas(5, 4);
             modified.drawLine(new Point(1, 1), new Point(5, 1));
 
-            CanvasMemento result = history.undo(modified);
+            var result = history.undo(modified);
 
             assertNotNull(result);
-            Canvas restored = result.restore();
+            var restored = result.restore();
             assertEquals(LINE_CHAR, restored.getPixel(new Point(3, 1)));
         }
 
         @Test
         void movesCurrentStateToRedoStack() {
-            Canvas original = new Canvas(5, 4);
+            var original = new Canvas(5, 4);
             history.saveState(original);
 
-            Canvas modified = new Canvas(5, 4);
+            var modified = new Canvas(5, 4);
             modified.drawLine(new Point(1, 1), new Point(3, 1));
 
             history.undo(modified);
@@ -111,10 +111,10 @@ class CommandHistoryTest {
         void supportsMultipleUndos() {
             history.saveState(null);
 
-            Canvas canvas1 = new Canvas(5, 4);
+            var canvas1 = new Canvas(5, 4);
             history.saveState(canvas1);
 
-            Canvas canvas2 = new Canvas(5, 4);
+            var canvas2 = new Canvas(5, 4);
             canvas2.drawLine(new Point(1, 1), new Point(3, 1));
 
             history.undo(canvas2);
@@ -128,36 +128,36 @@ class CommandHistoryTest {
     class Redo {
         @Test
         void throwsWhenNothingToRedo() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
 
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> history.redo(canvas));
             assertTrue(ex.getMessage().contains("redo"));
         }
 
         @Test
         void restoresUndoneState() {
-            Canvas original = new Canvas(5, 4);
+            var original = new Canvas(5, 4);
             history.saveState(original);
 
-            Canvas modified = new Canvas(5, 4);
+            var modified = new Canvas(5, 4);
             modified.drawLine(new Point(1, 1), new Point(3, 1));
 
             history.undo(modified);
-            CanvasMemento result = history.redo(original);
+            var result = history.redo(original);
 
             assertNotNull(result);
-            Canvas restored = result.restore();
+            var restored = result.restore();
             assertEquals(LINE_CHAR, restored.getPixel(new Point(1, 1)));
         }
 
         @Test
         void supportsMultipleRedos() {
             history.saveState(null);
-            Canvas canvas1 = new Canvas(5, 4);
+            var canvas1 = new Canvas(5, 4);
             history.saveState(canvas1);
 
-            Canvas canvas2 = new Canvas(5, 4);
+            var canvas2 = new Canvas(5, 4);
             canvas2.drawLine(new Point(1, 1), new Point(3, 1));
 
             history.undo(canvas2);
@@ -174,7 +174,7 @@ class CommandHistoryTest {
     class UndoRedoInteraction {
         @Test
         void undoThenRedoThenNewCommandClearsRedo() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
             history.saveState(null);
             history.undo(canvas);
             assertTrue(history.canRedo());
@@ -189,13 +189,13 @@ class CommandHistoryTest {
     class HistoryLimit {
         @Test
         void limitsUndoStackSize() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
 
-            for (int i = 0; i < 60; i++) {
+            for (var i = 0; i < 60; i++) {
                 history.saveState(canvas);
             }
 
-            int undoCount = 0;
+            var undoCount = 0;
             while (history.canUndo()) {
                 history.undo(canvas);
                 undoCount++;
@@ -209,7 +209,7 @@ class CommandHistoryTest {
     class DiscardLastState {
         @Test
         void discardsLastSavedState() {
-            Canvas canvas = new Canvas(5, 4);
+            var canvas = new Canvas(5, 4);
             history.saveState(canvas);
             assertTrue(history.canUndo());
 
@@ -220,8 +220,8 @@ class CommandHistoryTest {
 
         @Test
         void discardsOnlyLastState() {
-            Canvas canvas1 = new Canvas(5, 4);
-            Canvas canvas2 = new Canvas(5, 4);
+            var canvas1 = new Canvas(5, 4);
+            var canvas2 = new Canvas(5, 4);
             canvas2.drawLine(new Point(1, 1), new Point(3, 1));
 
             history.saveState(canvas1);
@@ -245,7 +245,7 @@ class CommandHistoryTest {
 
         @Test
         void usedForCommandFailureRollback() {
-            Canvas original = new Canvas(5, 4);
+            var original = new Canvas(5, 4);
             original.drawLine(new Point(1, 1), new Point(2, 1));
 
             history.saveState(original);

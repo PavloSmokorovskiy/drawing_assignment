@@ -37,23 +37,23 @@ class CommandParserTest {
     class CreateCanvas {
         @Test
         void parsesValidCommand() {
-            Command cmd = parser.parse("C 20 4");
+            var cmd = parser.parse("C 20 4");
 
             assertInstanceOf(CreateCanvasCommand.class, cmd);
-            CreateCanvasCommand c = (CreateCanvasCommand) cmd;
+            var c = (CreateCanvasCommand) cmd;
             assertEquals(20, c.width());
             assertEquals(4, c.height());
         }
 
         @Test
         void handlesCaseInsensitivity() {
-            Command cmd = parser.parse("c 10 5");
+            var cmd = parser.parse("c 10 5");
             assertInstanceOf(CreateCanvasCommand.class, cmd);
         }
 
         @Test
         void handlesExtraWhitespace() {
-            Command cmd = parser.parse("  C   20   4  ");
+            var cmd = parser.parse("  C   20   4  ");
             assertInstanceOf(CreateCanvasCommand.class, cmd);
         }
     }
@@ -62,10 +62,10 @@ class CommandParserTest {
     class DrawLine {
         @Test
         void parsesValidCommand() {
-            Command cmd = parser.parse("L 1 2 6 2");
+            var cmd = parser.parse("L 1 2 6 2");
 
             assertInstanceOf(DrawLineCommand.class, cmd);
-            DrawLineCommand l = (DrawLineCommand) cmd;
+            var l = (DrawLineCommand) cmd;
             assertEquals(new Point(1, 2), l.from());
             assertEquals(new Point(6, 2), l.to());
         }
@@ -75,10 +75,10 @@ class CommandParserTest {
     class DrawRectangle {
         @Test
         void parsesValidCommand() {
-            Command cmd = parser.parse("R 14 1 18 3");
+            var cmd = parser.parse("R 14 1 18 3");
 
             assertInstanceOf(DrawRectangleCommand.class, cmd);
-            DrawRectangleCommand r = (DrawRectangleCommand) cmd;
+            var r = (DrawRectangleCommand) cmd;
             assertEquals(new Point(14, 1), r.corner1());
             assertEquals(new Point(18, 3), r.corner2());
         }
@@ -88,17 +88,17 @@ class CommandParserTest {
     class BucketFill {
         @Test
         void parsesValidCommand() {
-            Command cmd = parser.parse("B 10 3 o");
+            var cmd = parser.parse("B 10 3 o");
 
             assertInstanceOf(BucketFillCommand.class, cmd);
-            BucketFillCommand b = (BucketFillCommand) cmd;
+            var b = (BucketFillCommand) cmd;
             assertEquals(new Point(10, 3), b.point());
             assertEquals('o', b.color());
         }
 
         @Test
         void rejectsMultiCharacterColor() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("B 10 3 oo"));
             assertTrue(ex.getMessage().contains("single character"));
         }
@@ -108,7 +108,7 @@ class CommandParserTest {
     class Help {
         @Test
         void parsesHelpCommand() {
-            Command cmd = parser.parse("H");
+            var cmd = parser.parse("H");
             assertInstanceOf(HelpCommand.class, cmd);
         }
 
@@ -122,16 +122,16 @@ class CommandParserTest {
     class Save {
         @Test
         void parsesSaveCommand() {
-            Command cmd = parser.parse("S output.txt");
+            var cmd = parser.parse("S output.txt");
 
             assertInstanceOf(SaveCommand.class, cmd);
-            SaveCommand s = (SaveCommand) cmd;
+            var s = (SaveCommand) cmd;
             assertEquals("output.txt", s.filename());
         }
 
         @Test
         void rejectsSaveWithoutFilename() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("S"));
             assertTrue(ex.getMessage().contains("Usage"));
         }
@@ -141,7 +141,7 @@ class CommandParserTest {
     class UndoRedo {
         @Test
         void parsesUndoCommand() {
-            Command cmd = parser.parse("U");
+            var cmd = parser.parse("U");
 
             assertInstanceOf(UndoCommand.class, cmd);
             assertFalse(cmd.modifiesCanvas());
@@ -149,7 +149,7 @@ class CommandParserTest {
 
         @Test
         void parsesRedoCommand() {
-            Command cmd = parser.parse("Z");
+            var cmd = parser.parse("Z");
 
             assertInstanceOf(RedoCommand.class, cmd);
             assertFalse(cmd.modifiesCanvas());
@@ -170,7 +170,7 @@ class CommandParserTest {
     class Quit {
         @Test
         void parsesQuitCommand() {
-            Command cmd = parser.parse("Q");
+            var cmd = parser.parse("Q");
 
             assertInstanceOf(QuitCommand.class, cmd);
             assertTrue(cmd.shouldQuit());
@@ -192,14 +192,14 @@ class CommandParserTest {
 
         @Test
         void rejectsUnknownCommand() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("X 1 2 3"));
             assertTrue(ex.getMessage().contains("Unknown command"));
         }
 
         @Test
         void rejectsTooFewArgumentsForCanvas() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("C 20"));
             assertTrue(ex.getMessage().contains("Usage"));
         }
@@ -216,21 +216,21 @@ class CommandParserTest {
 
         @Test
         void rejectsNonNumericCoordinates() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("C abc 4"));
             assertTrue(ex.getMessage().contains("number"));
         }
 
         @Test
         void rejectsZeroWidth() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("C 0 4"));
             assertTrue(ex.getMessage().contains("positive"));
         }
 
         @Test
         void rejectsNegativeHeight() {
-            DrawingException ex = assertThrows(DrawingException.class,
+            var ex = assertThrows(DrawingException.class,
                     () -> parser.parse("C 20 -4"));
             assertTrue(ex.getMessage().contains("positive"));
         }

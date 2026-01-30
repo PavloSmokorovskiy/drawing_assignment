@@ -1,7 +1,6 @@
 package drawing;
 
 import drawing.context.DrawingContext;
-import drawing.command.Command;
 import drawing.exception.DrawingException;
 import drawing.io.Console;
 import drawing.io.SystemConsole;
@@ -43,12 +42,12 @@ public final class DrawingApp {
             }
 
             try {
-                String line = scanner.nextLine();
+                var line = scanner.nextLine();
                 if (line.isBlank()) {
                     continue;
                 }
 
-                Command command = parser.parse(line);
+                var command = parser.parse(line);
 
                 if (command.shouldQuit()) {
                     return;
@@ -78,9 +77,9 @@ public final class DrawingApp {
     }
 
     public static void main(String[] args) {
-        Console console = new SystemConsole();
+        var console = new SystemConsole();
         try {
-            InputSource source = resolveInput(args);
+            var source = resolveInput(args);
             try (var stream = source.stream(); var scanner = new Scanner(stream)) {
                 new DrawingApp(scanner, source.interactive(), console).run();
             }
@@ -95,7 +94,7 @@ public final class DrawingApp {
             return new InputSource(System.in, true);
         }
         if (args.length == 1) {
-            Path path = Path.of(args[0]);
+            var path = Path.of(args[0]);
             if (!Files.exists(path)) {
                 throw new IOException("File not found: " + path);
             }

@@ -30,8 +30,8 @@ class CanvasTest {
 
         @Test
         void initializesAllPixelsToEmpty() {
-            for (int y = 1; y <= 4; y++) {
-                for (int x = 1; x <= 5; x++) {
+            for (var y = 1; y <= 4; y++) {
+                for (var x = 1; x <= 5; x++) {
                     assertEquals(EMPTY_CHAR, canvas.getPixel(new Point(x, y)));
                 }
             }
@@ -56,7 +56,7 @@ class CanvasTest {
         void drawsVerticalLine() {
             canvas.drawLine(new Point(2, 1), new Point(2, 4));
 
-            for (int y = 1; y <= 4; y++) {
+            for (var y = 1; y <= 4; y++) {
                 assertEquals(LINE_CHAR, canvas.getPixel(new Point(2, y)));
             }
             assertEquals(EMPTY_CHAR, canvas.getPixel(new Point(1, 1)));
@@ -67,7 +67,7 @@ class CanvasTest {
         void handlesReversedHorizontalCoordinates() {
             canvas.drawLine(new Point(4, 2), new Point(1, 2));
 
-            for (int x = 1; x <= 4; x++) {
+            for (var x = 1; x <= 4; x++) {
                 assertEquals(LINE_CHAR, canvas.getPixel(new Point(x, 2)));
             }
         }
@@ -76,7 +76,7 @@ class CanvasTest {
         void handlesReversedVerticalCoordinates() {
             canvas.drawLine(new Point(2, 4), new Point(2, 1));
 
-            for (int y = 1; y <= 4; y++) {
+            for (var y = 1; y <= 4; y++) {
                 assertEquals(LINE_CHAR, canvas.getPixel(new Point(2, y)));
             }
         }
@@ -97,8 +97,8 @@ class CanvasTest {
         void fillsEmptyCanvas() {
             canvas.fill(new Point(1, 1), 'o');
 
-            for (int y = 1; y <= 4; y++) {
-                for (int x = 1; x <= 5; x++) {
+            for (var y = 1; y <= 4; y++) {
+                for (var x = 1; x <= 5; x++) {
                     assertEquals('o', canvas.getPixel(new Point(x, y)));
                 }
             }
@@ -136,8 +136,8 @@ class CanvasTest {
             canvas.fill(new Point(1, 1), 'o');
             canvas.fill(new Point(3, 3), 'o');
 
-            for (int y = 1; y <= 4; y++) {
-                for (int x = 1; x <= 5; x++) {
+            for (var y = 1; y <= 4; y++) {
+                for (var x = 1; x <= 5; x++) {
                     assertEquals('o', canvas.getPixel(new Point(x, y)));
                 }
             }
