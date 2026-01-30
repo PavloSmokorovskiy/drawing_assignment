@@ -10,9 +10,17 @@ SOLEX
 
 Click one of the badges above to run the application in your browser — no installation required.
 
-After the environment loads, run in terminal:
-```bash
-./gradlew run --console=plain
+After the environment loads:
+- Press **F5** or go to **Run** → **Start Debugging** → select **"Run Drawing App"**
+- Or run in terminal: `./gradlew run --console=plain`
+
+Then enter commands like:
+```
+C 20 4
+L 1 2 6 2
+R 14 1 18 3
+B 10 3 o
+Q
 ```
 
 ## The Problem
