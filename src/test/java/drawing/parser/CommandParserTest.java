@@ -1,7 +1,16 @@
 package drawing.parser;
 
 import drawing.canvas.Point;
-import drawing.command.*;
+import drawing.command.BucketFillCommand;
+import drawing.command.Command;
+import drawing.command.CreateCanvasCommand;
+import drawing.command.DrawLineCommand;
+import drawing.command.DrawRectangleCommand;
+import drawing.command.HelpCommand;
+import drawing.command.QuitCommand;
+import drawing.command.RedoCommand;
+import drawing.command.SaveCommand;
+import drawing.command.UndoCommand;
 import drawing.exception.DrawingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -9,7 +18,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CommandParserTest {
 

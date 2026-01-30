@@ -7,8 +7,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static drawing.canvas.DrawingConstants.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static drawing.canvas.DrawingConstants.EMPTY_CHAR;
+import static drawing.canvas.DrawingConstants.MAX_CANVAS_HEIGHT;
+import static drawing.canvas.DrawingConstants.MAX_CANVAS_WIDTH;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CreateCanvasCommandTest {
 

@@ -37,18 +37,14 @@ public final class Canvas {
     }
 
     char[][] copyPixels() {
-        char[][] copy = new char[height][width];
-        for (int i = 0; i < height; i++) {
-            copy[i] = pixels[i].clone();
-        }
-        return copy;
+        return PixelArrays.copy(pixels);
     }
 
-    public char getPixelAt(int x, int y) {
+    char getPixelRaw(int x, int y) {
         return pixels[y][x];
     }
 
-    boolean isOutOfBounds(Point p) {
+    private boolean isOutOfBounds(Point p) {
         return p.x() < 1 || p.x() > width || p.y() < 1 || p.y() > height;
     }
 
@@ -113,8 +109,10 @@ public final class Canvas {
     }
 
     private void clear() {
-        for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 pixels[y][x] = EMPTY_CHAR;
+            }
+        }
     }
 }

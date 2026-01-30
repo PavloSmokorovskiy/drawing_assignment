@@ -1,24 +1,22 @@
 package drawing.command;
 
 import drawing.context.DrawingContext;
+import drawing.io.TestConsole;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HelpCommandTest {
 
     @Test
     void printsHelpText() {
-        var output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
+        var console = new TestConsole();
+        var context = new DrawingContext(console);
 
-        var command = new HelpCommand();
-        command.execute(new DrawingContext());
+        new HelpCommand().execute(context);
 
-        String result = output.toString();
+        String result = console.getOutput();
         assertTrue(result.contains("Commands:"));
         assertTrue(result.contains("C w h"));
         assertTrue(result.contains("L x1 y1 x2 y2"));

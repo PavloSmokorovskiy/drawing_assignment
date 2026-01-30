@@ -4,6 +4,7 @@ import drawing.context.DrawingContext;
 import drawing.canvas.Canvas;
 import drawing.canvas.Point;
 import drawing.exception.DrawingException;
+import drawing.io.TestConsole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,15 +13,19 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SaveCommandTest {
 
     private DrawingContext context;
+    private TestConsole console;
 
     @BeforeEach
     void setUp() {
-        context = new DrawingContext();
+        console = new TestConsole();
+        context = new DrawingContext(console);
     }
 
     @Nested
@@ -36,6 +41,16 @@ class SaveCommandTest {
             assertTrue(Files.exists(outputFile));
             String content = Files.readString(outputFile);
             assertTrue(content.contains("xxxxx"));
+        }
+
+        @Test
+        void printsConfirmationMessage(@TempDir Path tempDir) {
+            context.setCanvas(new Canvas(5, 3));
+
+            Path outputFile = tempDir.resolve("output.txt");
+            new SaveCommand(outputFile.toString()).execute(context);
+
+            assertTrue(console.getOutput().contains("Canvas saved to:"));
         }
 
         @Test

@@ -1,7 +1,16 @@
 package drawing.parser;
 
 import drawing.canvas.Point;
-import drawing.command.*;
+import drawing.command.BucketFillCommand;
+import drawing.command.Command;
+import drawing.command.CreateCanvasCommand;
+import drawing.command.DrawLineCommand;
+import drawing.command.DrawRectangleCommand;
+import drawing.command.HelpCommand;
+import drawing.command.QuitCommand;
+import drawing.command.RedoCommand;
+import drawing.command.SaveCommand;
+import drawing.command.UndoCommand;
 import drawing.exception.DrawingException;
 
 public final class CommandParser {
@@ -35,14 +44,12 @@ public final class CommandParser {
 
     private Command parseLine(String[] p) {
         require(p, 5, "L <x1> <y1> <x2> <y2>");
-        return new DrawLineCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")),
-                new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
+        return new DrawLineCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")), new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
     }
 
     private Command parseRectangle(String[] p) {
         require(p, 5, "R <x1> <y1> <x2> <y2>");
-        return new DrawRectangleCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")),
-                new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
+        return new DrawRectangleCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")), new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
     }
 
     private Command parseFill(String[] p) {
@@ -68,8 +75,9 @@ public final class CommandParser {
     private int toInt(String s, String name) {
         try {
             int val = Integer.parseInt(s);
-            if (val <= 0)
+            if (val <= 0) {
                 throw new DrawingException(name + " must be positive");
+            }
             return val;
         } catch (NumberFormatException e) {
             throw new DrawingException(name + " must be a number");

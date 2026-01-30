@@ -19,7 +19,7 @@ public record HelpCommand() implements Command {
 
     @Override
     public void execute(DrawingContext context) {
-        System.out.print(HELP_TEXT);
+        context.getConsole().print(HELP_TEXT);
     }
 
     @Override

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static drawing.canvas.DrawingConstants.EMPTY_CHAR;
 import static drawing.canvas.DrawingConstants.LINE_CHAR;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CanvasMementoTest {
 

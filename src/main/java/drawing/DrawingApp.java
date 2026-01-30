@@ -19,7 +19,7 @@ public final class DrawingApp {
     private final boolean interactive;
     private final Console console;
     private final CommandParser parser = new CommandParser();
-    private final DrawingContext context = new DrawingContext();
+    private final DrawingContext context;
 
     public DrawingApp(Scanner scanner, boolean interactive) {
         this(scanner, interactive, new SystemConsole());
@@ -29,6 +29,7 @@ public final class DrawingApp {
         this.scanner = scanner;
         this.interactive = interactive;
         this.console = console;
+        this.context = new DrawingContext(console);
     }
 
     public void run() {
@@ -77,13 +78,14 @@ public final class DrawingApp {
     }
 
     public static void main(String[] args) {
+        Console console = new SystemConsole();
         try {
             InputSource source = resolveInput(args);
             try (var stream = source.stream(); var scanner = new Scanner(stream)) {
-                new DrawingApp(scanner, source.interactive()).run();
+                new DrawingApp(scanner, source.interactive(), console).run();
             }
         } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
+            console.printError("Error: " + e.getMessage());
             System.exit(1);
         }
     }

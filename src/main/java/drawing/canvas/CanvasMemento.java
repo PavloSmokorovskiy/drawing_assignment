@@ -25,14 +25,6 @@ public final class CanvasMemento {
     }
 
     public Canvas restore() {
-        return new Canvas(width, height, copyPixels());
-    }
-
-    private char[][] copyPixels() {
-        char[][] copy = new char[pixels.length][];
-        for (int i = 0; i < pixels.length; i++) {
-            copy[i] = pixels[i].clone();
-        }
-        return copy;
+        return new Canvas(width, height, PixelArrays.copy(pixels));
     }
 }

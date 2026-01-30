@@ -4,12 +4,23 @@ import drawing.canvas.Canvas;
 import drawing.canvas.CanvasRenderer;
 import drawing.exception.DrawingException;
 import drawing.history.CommandHistory;
+import drawing.io.Console;
+import drawing.io.SystemConsole;
 
 public final class DrawingContext {
 
     private Canvas canvas;
     private final CommandHistory history = new CommandHistory();
     private final CanvasRenderer renderer = new CanvasRenderer();
+    private final Console console;
+
+    public DrawingContext() {
+        this(new SystemConsole());
+    }
+
+    public DrawingContext(Console console) {
+        this.console = console;
+    }
 
     public Canvas getCanvas() {
         return canvas;
@@ -25,6 +36,10 @@ public final class DrawingContext {
 
     public CanvasRenderer getRenderer() {
         return renderer;
+    }
+
+    public Console getConsole() {
+        return console;
     }
 
     public Canvas requireCanvas() {
