@@ -1,13 +1,12 @@
 # Drawing Assignment
 
-[![CI](https://github.com/PavloSmokorovskiy/drawing_assignment/actions/workflows/ci.yml/badge.svg)](https://github.com/PavloSmokorovskiy/drawing_assignment/actions/workflows/ci.yml)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PavloSmokorovskiy/drawing_assignment)
-
 SOLEX
 
-## Try it Online
+## Try it Online 
 
-Click the **Open in GitHub Codespaces** badge above to run the application in your browser.
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PavloSmokorovskiy/drawing_assignment)
+
+Click the badge above, then press **Create codespace**.
 
 After the environment loads:
 1. Go to **Run and Debug** (Ctrl+Shift+D)
