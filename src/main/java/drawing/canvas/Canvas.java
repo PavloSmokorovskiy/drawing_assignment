@@ -3,6 +3,7 @@ package drawing.canvas;
 import drawing.exception.DrawingException;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -109,10 +110,8 @@ public final class Canvas {
     }
 
     private void clear() {
-        for (var y = 0; y < height; y++) {
-            for (var x = 0; x < width; x++) {
-                pixels[y][x] = EMPTY_CHAR;
-            }
+        for (var row : pixels) {
+            Arrays.fill(row, EMPTY_CHAR);
         }
     }
 }
