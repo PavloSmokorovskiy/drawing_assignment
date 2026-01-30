@@ -7,16 +7,18 @@ SOLEX
 
 ## Try it Online
 
-Click one of the badges above to run the application in your browser — no installation required.
+Click the **Open in GitHub Codespaces** badge above to run the application in your browser.
 
 After the environment loads:
-- Press **F5** or go to **Run** → **Start Debugging** → select **"Run Drawing App"**
-- Or run in terminal: `./gradlew run --console=plain`
+1. Go to **Run and Debug** (Ctrl+Shift+D)
+2. Select **"Java"** from the dropdown
 
-Then enter commands like:
+Then enter commands in the terminal:
 ```
+H
 C 20 4
 L 1 2 6 2
+L 6 3 6 4
 R 14 1 18 3
 B 10 3 o
 Q
