@@ -1,7 +1,6 @@
 package drawing.command;
 
 import drawing.context.DrawingContext;
-import drawing.canvas.Canvas;
 import drawing.exception.DrawingException;
 
 import java.io.IOException;
@@ -12,8 +11,8 @@ public record SaveCommand(String filename) implements Command {
 
     @Override
     public void execute(DrawingContext context) {
-        Canvas canvas = context.requireCanvas();
-        String content = context.getRenderer().render(canvas);
+        var canvas = context.requireCanvas();
+        var content = context.getRenderer().render(canvas);
 
         try {
             Files.writeString(Path.of(filename), content);

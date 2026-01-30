@@ -44,12 +44,16 @@ public final class CommandParser {
 
     private Command parseLine(String[] p) {
         require(p, 5, "L <x1> <y1> <x2> <y2>");
-        return new DrawLineCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")), new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
+        Point from = new Point(toInt(p[1], "x1"), toInt(p[2], "y1"));
+        Point to = new Point(toInt(p[3], "x2"), toInt(p[4], "y2"));
+        return new DrawLineCommand(from, to);
     }
 
     private Command parseRectangle(String[] p) {
         require(p, 5, "R <x1> <y1> <x2> <y2>");
-        return new DrawRectangleCommand(new Point(toInt(p[1], "x1"), toInt(p[2], "y1")), new Point(toInt(p[3], "x2"), toInt(p[4], "y2")));
+        Point corner1 = new Point(toInt(p[1], "x1"), toInt(p[2], "y1"));
+        Point corner2 = new Point(toInt(p[3], "x2"), toInt(p[4], "y2"));
+        return new DrawRectangleCommand(corner1, corner2);
     }
 
     private Command parseFill(String[] p) {
