@@ -6,7 +6,7 @@ final class PixelArrays {
     }
 
     static char[][] copy(char[][] source) {
-        char[][] copy = new char[source.length][];
+        var copy = new char[source.length][];
         for (var i = 0; i < source.length; i++) {
             copy[i] = source[i].clone();
         }

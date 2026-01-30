@@ -86,7 +86,7 @@ public final class Canvas {
         }
 
         var queue = new ArrayDeque<Point>();
-        Set<Point> visited = new HashSet<>();
+        var visited = new HashSet<Point>();
         queue.offer(start);
         visited.add(start);
 
