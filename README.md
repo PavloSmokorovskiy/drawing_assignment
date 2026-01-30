@@ -1,5 +1,19 @@
 # Drawing Assignment
+
+[![CI](https://github.com/PavloSmokorovskiy/drawing_assignment/actions/workflows/ci.yml/badge.svg)](https://github.com/PavloSmokorovskiy/drawing_assignment/actions/workflows/ci.yml)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/PavloSmokorovskiy/drawing_assignment)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PavloSmokorovskiy/drawing_assignment)
+
 SOLEX
+
+## Try it Online
+
+Click one of the badges above to run the application in your browser — no installation required.
+
+After the environment loads, run in terminal:
+```bash
+./gradlew run --console=plain
+```
 
 ## The Problem
 
