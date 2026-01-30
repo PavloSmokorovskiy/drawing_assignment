@@ -2,7 +2,6 @@ package drawing.parser;
 
 import drawing.canvas.Point;
 import drawing.command.BucketFillCommand;
-import drawing.command.Command;
 import drawing.command.CreateCanvasCommand;
 import drawing.command.DrawLineCommand;
 import drawing.command.DrawRectangleCommand;

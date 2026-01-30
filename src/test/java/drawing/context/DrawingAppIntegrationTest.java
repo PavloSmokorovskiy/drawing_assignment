@@ -1,7 +1,6 @@
 package drawing.context;
 
 import drawing.canvas.Point;
-import drawing.command.Command;
 import drawing.exception.DrawingException;
 import drawing.parser.CommandParser;
 import org.junit.jupiter.api.BeforeEach;
