@@ -89,13 +89,6 @@ class CommandParserTest {
                     () -> parser.parse("B 10 3 oo"));
             assertTrue(ex.getMessage().contains("single character"));
         }
-
-        @Test
-        void rejectsLineCharAsColor() {
-            DrawingException ex = assertThrows(DrawingException.class,
-                    () -> parser.parse("B 10 3 x"));
-            assertTrue(ex.getMessage().contains("reserved for lines"));
-        }
     }
 
     @Nested

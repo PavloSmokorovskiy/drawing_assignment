@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static drawing.canvas.DrawingConstants.LINE_CHAR;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,13 +63,13 @@ class CommandHistoryTest {
         }
 
         @Test
-        void returnsEmptyOptionalForNullState() {
+        void returnsNullForNullState() {
             history.saveState(null);
             Canvas canvas = new Canvas(5, 4);
 
-            Optional<CanvasMemento> result = history.undo(canvas);
+            CanvasMemento result = history.undo(canvas);
 
-            assertTrue(result.isEmpty());
+            assertNull(result);
         }
 
         @Test
@@ -83,10 +81,10 @@ class CommandHistoryTest {
             Canvas modified = new Canvas(5, 4);
             modified.drawLine(new Point(1, 1), new Point(5, 1));
 
-            Optional<CanvasMemento> result = history.undo(modified);
+            CanvasMemento result = history.undo(modified);
 
-            assertTrue(result.isPresent());
-            Canvas restored = result.get().restore();
+            assertNotNull(result);
+            Canvas restored = result.restore();
             assertEquals(LINE_CHAR, restored.getPixel(new Point(3, 1)));
         }
 
@@ -140,10 +138,10 @@ class CommandHistoryTest {
             modified.drawLine(new Point(1, 1), new Point(3, 1));
 
             history.undo(modified);
-            Optional<CanvasMemento> result = history.redo(original);
+            CanvasMemento result = history.redo(original);
 
-            assertTrue(result.isPresent());
-            Canvas restored = result.get().restore();
+            assertNotNull(result);
+            Canvas restored = result.restore();
             assertEquals(LINE_CHAR, restored.getPixel(new Point(1, 1)));
         }
 
@@ -226,8 +224,8 @@ class CommandHistoryTest {
             history.discardLastState();
 
             assertTrue(history.canUndo());
-            Optional<CanvasMemento> restored = history.undo(canvas2);
-            assertTrue(restored.isPresent());
+            CanvasMemento restored = history.undo(canvas2);
+            assertNotNull(restored);
         }
 
         @Test

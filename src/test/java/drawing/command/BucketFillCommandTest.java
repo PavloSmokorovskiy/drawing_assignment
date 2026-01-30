@@ -98,6 +98,14 @@ class BucketFillCommandTest {
 
             assertThrows(DrawingException.class, () -> cmd.execute(emptyContext));
         }
+
+        @Test
+        void rejectsLineCharAsColor() {
+            BucketFillCommand cmd = new BucketFillCommand(new Point(1, 1), LINE_CHAR);
+
+            DrawingException ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
+            assertTrue(ex.getMessage().contains("reserved for lines"));
+        }
     }
 
     @Test

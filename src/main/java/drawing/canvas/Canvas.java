@@ -3,6 +3,8 @@ package drawing.canvas;
 import drawing.exception.DrawingException;
 
 import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Set;
 
 import static drawing.canvas.DrawingConstants.EMPTY_CHAR;
 import static drawing.canvas.DrawingConstants.LINE_CHAR;
@@ -34,8 +36,12 @@ public final class Canvas {
         return height;
     }
 
-    char[][] pixels() {
-        return pixels;
+    char[][] copyPixels() {
+        char[][] copy = new char[height][width];
+        for (int i = 0; i < height; i++) {
+            copy[i] = pixels[i].clone();
+        }
+        return copy;
     }
 
     public char getPixelAt(int x, int y) {
@@ -84,27 +90,25 @@ public final class Canvas {
         }
 
         var queue = new ArrayDeque<Point>();
+        Set<Point> visited = new HashSet<>();
         queue.offer(start);
+        visited.add(start);
 
         while (!queue.isEmpty()) {
             Point p = queue.poll();
-
-            if (isOutOfBounds(p) || getPixel(p) != target) {
-                continue;
-            }
-
             setPixel(p, color);
 
-            addIfValid(queue, p.moveX(1), target);
-            addIfValid(queue, p.moveX(-1), target);
-            addIfValid(queue, p.moveY(1), target);
-            addIfValid(queue, p.moveY(-1), target);
+            addIfNotVisited(queue, visited, p.moveX(1), target);
+            addIfNotVisited(queue, visited, p.moveX(-1), target);
+            addIfNotVisited(queue, visited, p.moveY(1), target);
+            addIfNotVisited(queue, visited, p.moveY(-1), target);
         }
     }
 
-    private void addIfValid(ArrayDeque<Point> queue, Point p, char target) {
-        if (!isOutOfBounds(p) && getPixel(p) == target) {
+    private void addIfNotVisited(ArrayDeque<Point> queue, Set<Point> visited, Point p, char target) {
+        if (!isOutOfBounds(p) && !visited.contains(p) && getPixel(p) == target) {
             queue.offer(p);
+            visited.add(p);
         }
     }
 

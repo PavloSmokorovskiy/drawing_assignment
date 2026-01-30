@@ -4,8 +4,6 @@ import drawing.canvas.Point;
 import drawing.command.*;
 import drawing.exception.DrawingException;
 
-import static drawing.canvas.DrawingConstants.LINE_CHAR;
-
 public final class CommandParser {
 
     public Command parse(String input) {
@@ -53,9 +51,6 @@ public final class CommandParser {
             throw new DrawingException("Color must be a single character");
         }
         char color = p[3].charAt(0);
-        if (color == LINE_CHAR) {
-            throw new DrawingException("Cannot use '" + LINE_CHAR + "' as fill color (reserved for lines)");
-        }
         return new BucketFillCommand(new Point(toInt(p[1], "x"), toInt(p[2], "y")), color);
     }
 

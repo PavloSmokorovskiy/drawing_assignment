@@ -2,11 +2,12 @@ package drawing.command;
 
 import drawing.context.DrawingContext;
 import drawing.canvas.Point;
+import drawing.exception.DrawingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static drawing.canvas.DrawingConstants.EMPTY_CHAR;
+import static drawing.canvas.DrawingConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreateCanvasCommandTest {
@@ -50,6 +51,31 @@ class CreateCanvasCommandTest {
             assertEquals(10, context.getCanvas().width());
             assertEquals(8, context.getCanvas().height());
             assertEquals(EMPTY_CHAR, context.getCanvas().getPixel(new Point(1, 1)));
+        }
+    }
+
+    @Nested
+    class Validation {
+        @Test
+        void acceptsMaximumSize() {
+            assertDoesNotThrow(() ->
+                    new CreateCanvasCommand(MAX_CANVAS_WIDTH, MAX_CANVAS_HEIGHT).execute(context));
+        }
+
+        @Test
+        void rejectsWidthExceedingMaximum() {
+            CreateCanvasCommand cmd = new CreateCanvasCommand(MAX_CANVAS_WIDTH + 1, 10);
+
+            DrawingException ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
+            assertTrue(ex.getMessage().contains("exceeds maximum"));
+        }
+
+        @Test
+        void rejectsHeightExceedingMaximum() {
+            CreateCanvasCommand cmd = new CreateCanvasCommand(10, MAX_CANVAS_HEIGHT + 1);
+
+            DrawingException ex = assertThrows(DrawingException.class, () -> cmd.execute(context));
+            assertTrue(ex.getMessage().contains("exceeds maximum"));
         }
     }
 

@@ -3,6 +3,8 @@ package drawing;
 import drawing.context.DrawingContext;
 import drawing.command.Command;
 import drawing.exception.DrawingException;
+import drawing.io.Console;
+import drawing.io.SystemConsole;
 import drawing.parser.CommandParser;
 
 import java.io.IOException;
@@ -15,19 +17,24 @@ public final class DrawingApp {
 
     private final Scanner scanner;
     private final boolean interactive;
+    private final Console console;
     private final CommandParser parser = new CommandParser();
     private final DrawingContext context = new DrawingContext();
 
     public DrawingApp(Scanner scanner, boolean interactive) {
+        this(scanner, interactive, new SystemConsole());
+    }
+
+    public DrawingApp(Scanner scanner, boolean interactive, Console console) {
         this.scanner = scanner;
         this.interactive = interactive;
+        this.console = console;
     }
 
     public void run() {
         while (true) {
             if (interactive) {
-                System.out.print("enter command: ");
-                System.out.flush();
+                console.print("enter command: ");
             }
 
             if (!scanner.hasNextLine()) {
@@ -60,11 +67,11 @@ public final class DrawingApp {
                 }
 
                 if (context.getCanvas() != null) {
-                    System.out.print(context.getRenderer().render(context.getCanvas()));
+                    console.print(context.getRenderer().render(context.getCanvas()));
                 }
 
             } catch (DrawingException e) {
-                System.out.println("Error: " + e.getMessage());
+                console.println("Error: " + e.getMessage());
             }
         }
     }
