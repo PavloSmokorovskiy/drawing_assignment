@@ -2,6 +2,7 @@ package drawing.command;
 
 import drawing.context.DrawingContext;
 
+/** Displays usage. Uses text block (Java 15+). modifiesCanvas=false. */
 public record HelpCommand() implements Command {
 
     private static final String HELP_TEXT = """

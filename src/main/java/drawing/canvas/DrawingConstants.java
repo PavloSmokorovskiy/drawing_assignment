@@ -1,5 +1,8 @@
 package drawing.canvas;
 
+/**
+ * Constants class pattern. Private constructor prevents instantiation.
+ */
 public final class DrawingConstants {
 
     public static final char EMPTY_CHAR = ' ';

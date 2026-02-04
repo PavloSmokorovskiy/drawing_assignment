@@ -1,5 +1,9 @@
 package drawing.canvas;
 
+/**
+ * Pattern: Memento (GoF). Captures canvas state for undo/redo.
+ * Uses defensive copying to preserve snapshot integrity.
+ */
 public final class CanvasMemento {
 
     private final int width;

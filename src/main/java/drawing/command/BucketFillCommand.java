@@ -6,6 +6,7 @@ import drawing.exception.DrawingException;
 
 import static drawing.canvas.DrawingConstants.LINE_CHAR;
 
+/** Delegates to Canvas.fill() (BFS algorithm). Validates reserved color. */
 public record BucketFillCommand(Point point, char color) implements Command {
 
     @Override

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/** Exports canvas to file. modifiesCanvas=false (read-only operation). */
 public record SaveCommand(String filename) implements Command {
 
     @Override

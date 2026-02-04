@@ -10,6 +10,10 @@ import java.util.Set;
 import static drawing.canvas.DrawingConstants.EMPTY_CHAR;
 import static drawing.canvas.DrawingConstants.LINE_CHAR;
 
+/**
+ * Drawing surface. Uses 1-based coordinates (user-friendly).
+ * Separation of concerns: stores pixels only, no borders (rendering responsibility).
+ */
 public final class Canvas {
 
     private final int width;
@@ -37,6 +41,7 @@ public final class Canvas {
         return height;
     }
 
+    /** Defensive copying for Memento pattern. */
     char[][] copyPixels() {
         return PixelArrays.copy(pixels);
     }
@@ -80,6 +85,7 @@ public final class Canvas {
         }
     }
 
+    /** Algorithm: BFS (Breadth-First Search) with HashSet. O(n) time/space. Avoids stack overflow. */
     public void fill(Point start, char color) {
         var target = getPixel(start);
         if (target == color) {

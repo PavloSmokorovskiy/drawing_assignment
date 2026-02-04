@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests DrawLineCommand. Verifies horizontal/vertical lines and diagonal rejection.
+ */
 class DrawLineCommandTest {
 
     private DrawingContext context;

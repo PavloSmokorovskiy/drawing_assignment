@@ -1,5 +1,8 @@
 package drawing.io;
 
+/**
+ * Test Double: Fake. Captures output for assertions.
+ */
 public class TestConsole implements Console {
 
     private final StringBuilder output = new StringBuilder();

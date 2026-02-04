@@ -3,6 +3,7 @@ package drawing.command;
 import drawing.context.DrawingContext;
 import drawing.canvas.Point;
 
+/** Normalizes coordinates (any two corners → four edges). Composes four drawLine calls. */
 public record DrawRectangleCommand(Point corner1, Point corner2) implements Command {
 
     @Override

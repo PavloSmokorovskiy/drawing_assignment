@@ -6,6 +6,9 @@ import static drawing.canvas.DrawingConstants.EMPTY_CHAR;
 import static drawing.canvas.DrawingConstants.LINE_CHAR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests Memento pattern. Verifies defensive copying and snapshot immutability.
+ */
 class CanvasMementoTest {
 
     @Test

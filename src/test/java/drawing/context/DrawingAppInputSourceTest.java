@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests REPL input modes: interactive (stdin) and file (batch). Uses @TempDir (JUnit 5).
+ */
 class DrawingAppInputSourceTest {
 
     @Nested

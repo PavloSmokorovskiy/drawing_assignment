@@ -17,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests Caretaker (Memento pattern). Verifies undo/redo stack behavior and history limit.
+ */
 class CommandHistoryTest {
 
     private CommandHistory history;

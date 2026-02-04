@@ -2,6 +2,7 @@ package drawing.command;
 
 import drawing.context.DrawingContext;
 
+/** Restores previous state via Memento. modifiesCanvas=false (history manages state). */
 public record UndoCommand() implements Command {
 
     @Override

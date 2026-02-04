@@ -2,6 +2,9 @@ package drawing.io;
 
 import java.io.PrintStream;
 
+/**
+ * Strategy implementation for production. Wraps System.out/err.
+ */
 public final class SystemConsole implements Console {
 
     private final PrintStream out;

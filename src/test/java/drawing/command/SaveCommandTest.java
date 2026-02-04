@@ -17,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests SaveCommand. Uses @TempDir for file I/O isolation (JUnit 5).
+ */
 class SaveCommandTest {
 
     private DrawingContext context;

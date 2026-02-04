@@ -7,6 +7,10 @@ import drawing.exception.DrawingException;
 import java.util.Deque;
 import java.util.LinkedList;
 
+/**
+ * Pattern: Caretaker (Memento). Manages undo/redo stacks.
+ * LinkedList used because ArrayDeque doesn't support null elements.
+ */
 public final class CommandHistory {
 
     private static final int MAX_HISTORY_SIZE = 50;

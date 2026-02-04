@@ -1,5 +1,8 @@
 package drawing.canvas;
 
+/**
+ * Utility class. Deep copy of 2D array for Memento pattern.
+ */
 final class PixelArrays {
 
     private PixelArrays() {

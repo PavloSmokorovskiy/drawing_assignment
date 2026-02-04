@@ -23,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests command parsing. Uses @ParameterizedTest for edge cases.
+ */
 class CommandParserTest {
 
     private CommandParser parser;

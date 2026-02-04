@@ -17,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests CreateCanvasCommand. Verifies dimension validation and canvas replacement.
+ */
 class CreateCanvasCommandTest {
 
     private DrawingContext context;

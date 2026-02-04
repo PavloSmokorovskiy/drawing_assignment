@@ -3,6 +3,9 @@ package drawing.canvas;
 import static drawing.canvas.DrawingConstants.HORIZONTAL_BORDER;
 import static drawing.canvas.DrawingConstants.VERTICAL_BORDER;
 
+/**
+ * Single Responsibility: rendering only. Canvas stores pixels, Renderer adds borders.
+ */
 public final class CanvasRenderer {
 
     public String render(Canvas canvas) {

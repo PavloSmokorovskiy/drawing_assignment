@@ -7,6 +7,10 @@ import drawing.history.CommandHistory;
 import drawing.io.Console;
 import drawing.io.SystemConsole;
 
+/**
+ * Pattern: Context Object. Aggregates session state for commands.
+ * Dependency Injection via constructor for testability.
+ */
 public final class DrawingContext {
 
     private Canvas canvas;

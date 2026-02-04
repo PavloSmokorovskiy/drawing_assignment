@@ -7,6 +7,7 @@ import drawing.exception.DrawingException;
 import static drawing.canvas.DrawingConstants.MAX_CANVAS_HEIGHT;
 import static drawing.canvas.DrawingConstants.MAX_CANVAS_WIDTH;
 
+/** Creates new canvas, replacing existing. Validates max dimensions. */
 public record CreateCanvasCommand(int width, int height) implements Command {
 
     @Override

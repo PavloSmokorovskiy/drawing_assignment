@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests DrawRectangleCommand. Verifies edges, corners, and coordinate normalization.
+ */
 class DrawRectangleCommandTest {
 
     private DrawingContext context;

@@ -13,6 +13,10 @@ import drawing.command.SaveCommand;
 import drawing.command.UndoCommand;
 import drawing.exception.DrawingException;
 
+/**
+ * Parses input into Command objects. Separation of concerns: syntax only.
+ * Semantic validation happens in Command.execute().
+ */
 public final class CommandParser {
 
     public Command parse(String input) {

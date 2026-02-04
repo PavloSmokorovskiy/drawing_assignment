@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests rendering output with borders. Uses text block literals (Java 15+).
+ */
 class CanvasRendererTest {
 
     private CanvasRenderer renderer;

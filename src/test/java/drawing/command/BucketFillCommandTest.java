@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests BucketFillCommand. Verifies BFS flood fill behavior and boundary detection.
+ */
 class BucketFillCommandTest {
 
     private DrawingContext context;

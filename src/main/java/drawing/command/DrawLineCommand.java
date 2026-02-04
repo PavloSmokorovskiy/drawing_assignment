@@ -4,6 +4,7 @@ import drawing.context.DrawingContext;
 import drawing.canvas.Point;
 import drawing.exception.DrawingException;
 
+/** Draws horizontal or vertical lines. Rejects diagonal (validation in Command, not Canvas). */
 public record DrawLineCommand(Point from, Point to) implements Command {
 
     @Override

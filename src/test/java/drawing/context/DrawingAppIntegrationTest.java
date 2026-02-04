@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Integration tests. Verifies command sequences including undo/redo flows.
+ */
 class DrawingAppIntegrationTest {
 
     private DrawingContext context;

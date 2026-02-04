@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Tests UndoCommand. Verifies state restoration via Memento pattern.
+ */
 class UndoCommandTest {
 
     private DrawingContext context;

@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests QuitCommand. Verifies shouldQuit() flag for REPL termination.
+ */
 class QuitCommandTest {
 
     @Test

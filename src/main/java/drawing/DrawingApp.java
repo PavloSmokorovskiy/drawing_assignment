@@ -12,6 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+/**
+ * Application entry point. Pattern: REPL (Read-Eval-Print Loop).
+ * Uses Dependency Injection for Console (testability).
+ */
 public final class DrawingApp {
 
     private final Scanner scanner;
@@ -53,6 +57,7 @@ public final class DrawingApp {
                     return;
                 }
 
+                // Transactional undo: save state before, discard on error
                 if (command.modifiesCanvas()) {
                     context.getHistory().saveState(context.getCanvas());
                 }
