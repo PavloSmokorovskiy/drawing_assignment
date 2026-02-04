@@ -2,6 +2,28 @@ package drawing.command;
 
 import drawing.context.DrawingContext;
 
+/**
+ * Команда вывода справки.
+ *
+ * Показывает список всех доступных команд с синтаксисом.
+ *
+ * TEXT BLOCK (JAVA 15+)
+ *
+ * Обратите внимание на синтаксис """ для многострочного текста.
+ * До Java 15 пришлось бы писать:
+ *
+ *   "Commands:\n" +
+ *   "  C w h           Create canvas\n" +
+ *   "  L x1 y1 x2 y2   Draw line\n" +
+ *   ...
+ *
+ * Text block автоматически:
+ * - Сохраняет форматирование и отступы
+ * - Не требует экранирования \n
+ * - Читается как обычный текст
+ *
+ * Это современная Java-фича, которая значительно улучшает читаемость.
+ */
 public record HelpCommand() implements Command {
 
     private static final String HELP_TEXT = """
@@ -24,6 +46,6 @@ public record HelpCommand() implements Command {
 
     @Override
     public boolean modifiesCanvas() {
-        return false;
+        return false;  // Только вывод текста
     }
 }
